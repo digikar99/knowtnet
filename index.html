@@ -1,0 +1,162 @@
+<!DOCTYPE html><html><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><link href="css/miscellaneous.css" rel="stylesheet"><script async="T" src="https://www.googletagmanager.com/gtag/js?id=UA-152031047-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-152031047-1');</script><title>Knowledge Transfer Network</title><script src="css/jquery-3.4.1.min.js"></script><title>Knowledge Transfer Network - Serverless</title><link rel="stylesheet" href="css/front.css" type="text/css"><link rel="stylesheet" href="css/link-box.css" type="text/css"><div id="responsive-info-panel"><div id="site-title"><span id="site-title-text" class="text-left">KnowTNet</span><span id="site-title-spacer" class="visible-small"></span><i id="info-panel-menu-btn" class="material-icons text-right visible-small">menu</i></div><span><form id="filter-form" method="GET" action="/filter"><select name="theme" required="required"><option value="">Select Theme</option><option value="programming">programming</option><option value="economics">economics</option><option value="lisp">lisp</option><option value="basic-science">basic-science</option><option value="artificial-intelligence">artificial-intelligence</option><option value="india">india</option><option value="iitb">iitb</option><option value="life">life</option></select><input type="submit" id="filter-btn" class="material-icons" value="search"></form><br><br><br><br><div id="username" class="text-center">Welcome to KnowTNet!</div><div id="info-panel-menu"><a href="/">Home</a><a href="/known-links">View Known Links</a><a href="/about">About Us</a><div id="info-panel-spacer"></div><a href="/logout-server">Log Out</a><a href="/logout-persistent-server">Log out on all devices</a><p id="ktn" class="text-center">KNOWLEDGE TRANSFER NETWORK</p></div><div id="loader-background"><div id="loader"></div></div><br class="visible-large"><br class="visible-large"><br class="visible-large"><script type="text/javascript">$('#info-panel-menu-btn').click(function () {
+    var args = Array.prototype.slice.call(arguments, 0);
+    __PS_MV_REG = [];
+    return document.getElementById('info-panel-menu').style.width = document.getElementById('info-panel-menu').style.width === '80vw' ? '0' : '80vw';
+});</script></div><div id="responsive-browse-link-boxes"></div><script type="text/javascript">function resizeLinkIframe(event) {
+    var target1 = event.target.target;
+    var iframe = document.getElementsByName(target1)[0];
+    var iframeHeight = iframe.style.height;
+    __PS_MV_REG = [];
+    return iframe.style.height = iframeHeight === 0.9 * window.innerHeight + 'px' ? '0px' : 0.9 * window.innerHeight + 'px';
+};
+if ('undefined' === typeof WAITINGFORAJAX) {
+    var WAITINGFORAJAX = null;
+};
+window.onscroll = function (event) {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !WAITINGFORAJAX) {
+        console.log('bottom');
+        WAITINGFORAJAX = true;
+        __PS_MV_REG = [];
+        return getLinkFromServer();
+    };
+};
+function randomInt(maxInt) {
+    __PS_MV_REG = [];
+    return Math.floor(Math.random() * maxInt);
+};
+function getLinkFromServer() {
+    __PS_MV_REG = [];
+    return $.get('data/' + String(randomInt(6)), function (responseText) {
+        document.getElementById('responsive-browse-link-boxes').insertAdjacentHTML('beforeend', responseText);
+        __PS_MV_REG = [];
+        return WAITINGFORAJAX = null;
+    });
+};
+$('.link-rating').find('a').click(promptForLogin);
+function getLinkBoxWithUpvoteBtn(elt) {
+    __PS_MV_REG = [];
+    return $(elt).parent().parent();
+};
+function getLinkBoxWithShareBtn(elt) {
+    __PS_MV_REG = [];
+    return $(elt).parent().parent().parent();
+};
+function getUrlOfLinkBox(linkBox) {
+    return linkBox.get(0).firstElementChild.firstElementChild.href;
+};
+function getTitleOfLinkBox(linkBox) {
+    return linkBox.get(0).firstElementChild.firstElementChild.innerHtml;
+};
+function updateLinkRating(e) {
+    var id = e.attr('id');
+    var linkId = id.substr(3);
+    var uri = '/api/rating/up/'.concat('/', linkId);
+    var elt = e;
+    __PS_MV_REG = [];
+    return $.ajax({ type : 'POST',
+                    url : uri,
+                    data : {  },
+                    cache : false,
+                    success : function (responseText) {
+        __PS_MV_REG = [];
+        return updateUpvoteButton(responseText, elt);
+    }
+                  });
+};
+function updateUpvoteButton(responseText, elt) {
+    var iTag = $(elt).find('i')[0];
+    var upvoteCount = $(elt).siblings()[0];
+    $(upvoteCount).text(responseText);
+    if ($(iTag).hasClass('not-upvoted')) {
+        $(iTag).addClass('upvoted');
+        $(iTag).removeClass('not-upvoted');
+        $(iTag).addClass('material-icons');
+        __PS_MV_REG = [];
+        return $(iTag).removeClass('material-icons-outlined');
+    } else {
+        $(iTag).removeClass('upvoted');
+        $(iTag).addClass('not-upvoted');
+        $(iTag).addClass('material-icons-outlined');
+        __PS_MV_REG = [];
+        return $(iTag).removeClass('material-icons');
+    };
+};
+$('.link-action').click(function () {
+    var args = Array.prototype.slice.call(arguments, 0);
+    console.log($(this));
+    $(this).parent().parent().remove();
+    __PS_MV_REG = [];
+    return sharePromptIsOpen = null;
+});
+function promptForLogin() {
+    __PS_MV_REG = [];
+    return $('#login-prompt').show();
+};
+$('#close-login-prompt').click(function () {
+    var args = Array.prototype.slice.call(arguments, 0);
+    __PS_MV_REG = [];
+    return $('#login-prompt').hide();
+});
+function hideLoader() {
+    __PS_MV_REG = [];
+    return document.getElementById('loader-background').style.display = 'none';
+};
+function showLoader() {
+    __PS_MV_REG = [];
+    return document.getElementById('loader-background').style.display = 'block';
+};
+$('.link-share-icon').click(function (e) {
+    var linkBox = getLinkBoxWithShareBtn(e.target);
+    var linkUrl = getUrlOfLinkBox(linkBox);
+    console.log(linkBox);
+    console.log(linkUrl);
+    if (navigator.share) {
+        showLoader();
+        setTimeout(hideLoader, 1000);
+        __PS_MV_REG = [];
+        return navigator.share({ title : document.title,
+                                 text : getTitleOfLinkBox(linkBox),
+                                 url : linkUrl
+                               }).then(hideLoader)['catch'](function (e) {
+            console.log(e);
+            __PS_MV_REG = [];
+            return hideLoader();
+        });
+    } else {
+        __PS_MV_REG = [];
+        return navigator.clipboard.writeText(linkUrl).then(function () {
+            var args = Array.prototype.slice.call(arguments, 0);
+            __PS_MV_REG = [];
+            return console.log('copied');
+        }, function (err) {
+            __PS_MV_REG = [];
+            return console.error(err);
+        });
+    };
+});
+console.log($('#browse-link-boxes').height(), $(window).height());
+$('img').width('90%');
+function pingAndOpen(url) {
+    console.log(url, ' opened');
+    __PS_MV_REG = [];
+    return window.open(url);
+};
+function sleep(ms) {
+    return new Promise;
+};
+$(document).ready(function () {
+    var args = Array.prototype.slice.call(arguments, 0);
+    for (var i = 0; i <= 5; i += 1) {
+        if ($('#responsive-browse-link-boxes').height() < $(window).height()) {
+            getLinkFromServer();
+            console.log('called');
+        } else {
+            console.log('dont-call');
+        };
+    };
+});</script></html>

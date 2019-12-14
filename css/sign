@@ -1,0 +1,1 @@
+<!DOCTYPE html><html><form action="signup">Username: <input type="text" name="user"><br>Password: <input type="password" name="pass"><br>Re-enter Password: <input type="password" name="repass"><br><input type="submit" value="Sign Up"></form><form action="index.html"><input type="submit" value="Login"></form></html>

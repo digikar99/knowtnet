@@ -1,0 +1,61 @@
+.width-300px{
+		width:300px;
+}
+
+body{
+		position:static;
+}
+#sharelink-form-div{
+		margin:auto;
+		height:500px;
+		margin-top:calc(50vh - 250px);
+}
+
+.sharelink-form-btn{
+    margin:auto;
+    margin-top:10px;
+    margin-bottom:10px;
+    display:block;
+    width: 80px;
+}
+
+input, select, textarea{
+    display:block;
+    margin: auto;
+}
+
+#newbie-p-label{
+		text-align:center;
+		margin:5px;
+}
+
+#title-status{
+		text-align:center;
+}
+
+#newbie-p{
+		display:inline-block;
+		margin:5px;
+}
+
+#sharelink-url, #sharelink-title{
+    /* width:200px; */
+		height:36px;
+}
+
+#sharelink-description{
+		/* width:200px; */
+		height:108px;
+}
+
+#preview{
+		margin:auto;
+		/* width:200px; */
+		font-family:Sans;
+}
+
+select{
+    width: 200px;
+}
+
+.warning{color:red;}

@@ -1,0 +1,27 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="http://www.reddit.com/r/Economics/wiki/faq_trade"
+    target="_blank">Trade Basics - r/economics wiki</a>
+  </div>
+  <div class="link-theme">economics</div>
+  <div class="link-level">Newbie</div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('http://www.reddit.com/r/Economics/wiki/faq_trade')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">FAQ: Free Trade 
+    <ul>
+      <li>Why do economists seem to love free trade so much?</li>
+      <li>What is comparative advantage?</li>
+      <li>Real world examples</li>
+      <li>What about trade deficits?</li>
+      <li>Aren't those unsustainable and hurt the economy?</li>
+      <li>Okay, but there are some people who lose from free trade,
+      right?</li>
+      <li>Extra reading</li>
+    </ul></div>
+  </div>
+</div>

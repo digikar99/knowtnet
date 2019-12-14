@@ -1,0 +1,30 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://teachyourselfcs.com" target="_blank">Teach
+    Yourself Computer Science</a>
+  </div>
+  <div class="link-theme">programming</div>
+  <div class="link-level">Newbie</div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://teachyourselfcs.com')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>If you’re a self-taught engineer or bootcamp grad, you owe
+      it to yourself to learn computer science. Thankfully, you can
+      give yourself a world-class CS education without investing
+      years and a small fortune in a degree program 💸.</p>
+      <p>[...]You need answers to these questions:</p>
+      <ul>
+        <li>Which subjects should you learn, and why?</li>
+        <li>What is the best book or video lecture series for each
+        subject?</li>
+      </ul>
+      <p>This guide is our attempt to definitively answer these
+      questions.</p>
+    </div>
+  </div>
+</div>

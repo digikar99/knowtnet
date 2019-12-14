@@ -1,0 +1,25 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="http://savarkar.org/en/encyc/2017/5/23/2_12_12_04_essentials_of_hindutva.v001.pdf_1.pdf"
+    target="_blank">Essentials of Hindutva - V. D. Savarkar
+    [pdf]</a>
+  </div>
+  <div class="link-theme">india</div>
+  <div class="link-level"></div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('http://savarkar.org/en/encyc/2017/5/23/2_12_12_04_essentials_of_hindutva.v001.pdf_1.pdf')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>(Sometime between 1921-22 Veer Savarkar completed his
+      historic book “Essentials of Hindutva” while still in
+      Andamans. This was later published under the pseudo name ‘A
+      Mahratta’.)</p>
+      <b>What is in a name?</b>
+      <p>We hope that the fair Maid of Verona ...</p>
+    </div>
+  </div>
+</div>

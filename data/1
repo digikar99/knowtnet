@@ -1,0 +1,26 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://www.reddit.com/r/Economics/wiki/faq_immigration"
+    target="_blank">Immigration - r/economics wiki</a>
+  </div>
+  <div class="link-theme">economics</div>
+  <div class="link-level"></div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://www.reddit.com/r/Economics/wiki/faq_immigration')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">One of the most common
+    questions about immigration concerns what happens to native
+    workers when immigrants join the labor force. A common argument
+    goes 
+    <blockquote>It must be true that an immigrant is taking a
+    native's job, or else they would be an unemployed
+    immigrant.</blockquote>This is a common misconception known as
+    the 
+    <a href="https://en.wikipedia.org/wiki/Lump_of_labour_fallacy"
+    rel="nofollow">lump of labor fallacy</a>.</div>
+  </div>
+</div>
