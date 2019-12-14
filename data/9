@@ -1,0 +1,37 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="http://lispcookbook.github.io/cl-cookbook/"
+    target="_blank">The Common Lisp Cookbook [book]</a>
+  </div>
+  <div class="link-theme">lisp</div>
+  <div class="link-level">Newbie</div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('http://lispcookbook.github.io/cl-cookbook/')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>This is a collaborative project that aims to provide for
+      Common Lisp something similar to the Perl Cookbook published
+      by O’Reilly. More details about what it is and what it isn’t
+      can be found in this thread from comp.lang.lisp. [...]</p>
+      <b>Content</b>
+      <ul>
+        <li>Getting Started</li>
+        <li>Functions</li>
+        <li>Data Structures</li>
+        <li>.</li>
+        <li>.</li>
+        <li>.</li>
+        <li>CLOS</li>
+        <li>.</li>
+        <li>Databases</li>
+        <li>.</li>
+        <li>Scripting, Building Executables</li>
+        <li>.</li>
+      </ul>
+    </div>
+  </div>
+</div>

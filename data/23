@@ -1,0 +1,26 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://www.psychologytoday.com/us/blog/fulfillment-any-age/201207/bragging-when-is-it-ok-and-when-is-it-not-ok"
+    target="_blank">Bragging, When Is It OK and When Is It Not OK?
+    | Psychology Today</a>
+  </div>
+  <div class="link-theme">life</div>
+  <div class="link-level"></div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://www.psychologytoday.com/us/blog/fulfillment-any-age/201207/bragging-when-is-it-ok-and-when-is-it-not-ok')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>Almost no one likes a show-off but almost everyone likes
+      to show off, at least a little. Some showing off happens by
+      accident and some in a deliberate attempt to manipulate
+      others. In either case, though, you run the risk of looking a
+      bit too satisfied with yourself if not downright
+      conceited.</p>
+      <p>The best way to brag about yourself to others is ...</p>
+    </div>
+  </div>
+</div>

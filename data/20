@@ -1,0 +1,27 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://kidshealth.org/en/parents/adolescence.html?WT.ac=ctg#catgrowing"
+    target="_blank">A Parent's Guide to Surviving the Teen Years -
+    KidsHealth</a>
+  </div>
+  <div class="link-theme">life</div>
+  <div class="link-level"></div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://kidshealth.org/en/parents/adolescence.html?WT.ac=ctg#catgrowing')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>You've lived through 2 a.m. feedings, toddler temper
+      tantrums, and the back-to-school blues. So why is the word
+      "teenager" causing you so much worry? [...] Despite some
+      adults' negative perceptions about teens, they are often
+      energetic, thoughtful, and idealistic, with a deep interest
+      in ...</p>
+      <b>Understanding the Teen Years</b>
+      <p>So when does...</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://www.cfa.harvard.edu/~ejchaisson/cosmic_evolution/docs/splash.html"
+    target="_blank">Cosmic Evolution - From Big Bang to
+    Humankind</a>
+  </div>
+  <div class="link-theme">life</div>
+  <div class="link-level"></div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://www.cfa.harvard.edu/~ejchaisson/cosmic_evolution/docs/splash.html')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <blockquote>
+        <p>When consciousness dawned among the ancestors of our
+        civilization, men and women perceived two things. They
+        noted themselves, and they noted their environment. They
+        wondered who they were and whence they came. They longed
+        for an understanding of the starry points of light in the
+        nighttime sky, of the surrounding plants and animals, of
+        the air, land, and sea. [...] Thousands of years ago, all
+        these basic queries were treated as secondary, for the
+        primary concern seemed ...</p>
+      </blockquote>
+    </div>
+  </div>
+</div>

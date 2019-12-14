@@ -1,0 +1,26 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://www.medicaldaily.com/how-summer-camp-helps-develop-your-childs-mental-health-and-resilience-246970"
+    target="_blank">How Summer Camp Helps Develop Your Child's
+    Mental Health and Resilience - Medical Daily</a>
+  </div>
+  <div class="link-theme">life</div>
+  <div class="link-level"></div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://www.medicaldaily.com/how-summer-camp-helps-develop-your-childs-mental-health-and-resilience-246970')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <ul>
+        <li>Separation</li>
+        <li>Resilience and Encouragement</li>
+        <li>Confidence and Overcoming Challenges</li>
+        <li>Independence leading to Character Building</li>
+        <li>Social Skills and Respecting Others</li>
+      </ul>
+    </div>
+  </div>
+</div>

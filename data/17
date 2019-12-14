@@ -1,0 +1,30 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://in.news.yahoo.com/how-is-the-myers-briggs-type-indicator-is-so-110101049.html"
+    target="_blank">Why Does the Myers-Briggs Type Indicator Seem
+    So Eerily Accurate?</a>
+  </div>
+  <div class="link-theme">life</div>
+  <div class="link-level">Newbie</div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://in.news.yahoo.com/how-is-the-myers-briggs-type-indicator-is-so-110101049.html')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>I’d heard about the Myers-Briggs personality test for
+      years, but I never took it very seriously. [...] My friend
+      Caroline, however, is a believer and basically a verifiable
+      expert on the subject at this point. “It’s helped me resolve
+      conflicts with my boyfriend and my sister,” she tells me for
+      about the 30th time, [...]</p>
+      <p>
+        <b>What are the drawbacks?</b>
+      </p>
+      <p>The major issue with the MBTI [...] is that people too
+      often use it in a predictive way ...</p>
+    </div>
+  </div>
+</div>

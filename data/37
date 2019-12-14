@@ -1,0 +1,28 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://www.ynharari.com/book/sapiens/"
+    target="_blank">Sapiens - Yuval Noah Harari [Book]</a>
+  </div>
+  <div class="link-theme">life</div>
+  <div class="link-level">Newbie</div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://www.ynharari.com/book/sapiens/')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>Homo sapiens rules the world because it is the only animal
+      that can believe in things that exist purely in its own
+      imagination, such as gods, states, money and human
+      rights.</p>
+      <p>Starting from this provocative idea, Sapiens goes on to
+      retell the history of our species from a completely fresh
+      perspective. It explains that money is the most pluralistic
+      system of mutual trust ever devised; that capitalism is the
+      most successful religion ever invented; that the treatment of
+      animals ...</p>
+    </div>
+  </div>
+</div>

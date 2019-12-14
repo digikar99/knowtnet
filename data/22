@@ -1,0 +1,27 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://learngitbranching.js.org/" target="_blank">
+    Learn Git Branching</a>
+  </div>
+  <div class="link-theme">programming</div>
+  <div class="link-level"></div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://learngitbranching.js.org/')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>Interested in learning Git? Well you've come to the right
+      place! "Learn Git Branching" is the most visual and
+      interactive way to learn Git on the web; you'll be challenged
+      with exciting levels, given step-by-step demonstrations of
+      powerful features, and maybe even have a bit of fun along the
+      way.</p>
+      <p>After this dialog you'll see the variety of levels we have
+      to offer. If you're a beginner, just go ahead and start with
+      ...</p>
+    </div>
+  </div>
+</div>

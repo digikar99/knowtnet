@@ -1,0 +1,31 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://dataintensive.net/buy.html" target="_blank">
+    Designing Data-Intensive Applications [Book]</a>
+  </div>
+  <div class="link-theme">programming</div>
+  <div class="link-level"></div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://dataintensive.net/buy.html')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>Rated 4.7(!)/5on Goodreads (100+ reviews / 1000+
+      ratings)</p>
+      <blockquote>
+        <b>Who Should Read This Book?</b>
+        <p>If you develop applications that have some kind of
+        server/backend for storing or processing data, and your
+        applications use the internet (e.g., web applications,
+        mobile apps, or internet-connected sensors), then this book
+        is for you.</p>
+        <p>This book is for software engineers, software
+        architects, and technical managers who love to code. It is
+        especially relevant if ...</p>
+      </blockquote>
+    </div>
+  </div>
+</div>

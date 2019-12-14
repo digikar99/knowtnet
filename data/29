@@ -1,0 +1,17 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="http://smp.iitb.ac.in/index.html" target="_blank">
+    Student Mentorship Programme - IIT Bombay</a>
+  </div>
+  <div class="link-theme">iitb</div>
+  <div class="link-level">Newbie</div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('http://smp.iitb.ac.in/index.html')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">[No preview available]</div>
+  </div>
+</div>

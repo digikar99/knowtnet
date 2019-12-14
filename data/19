@@ -1,0 +1,27 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://kidshealth.org/en/parents/" target="_blank">
+    Knowledge, perspective, advice, and comfort for parents -
+    KidsHealth.org</a>
+  </div>
+  <div class="link-theme">life</div>
+  <div class="link-level"></div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://kidshealth.org/en/parents/')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <ul>
+        <li>Growth &amp; Development ...</li>
+        <li>Flu Center ...</li>
+        <li>Your child's checkups ...</li>
+        <li>Daily Q&amp;A: What if my baby isn't born by me due
+        date?</li>
+        <li>...</li>
+      </ul>
+    </div>
+  </div>
+</div>

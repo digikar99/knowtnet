@@ -1,0 +1,24 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://www.khanacademy.org/science/high-school-biology/hs-biology-foundations/hs-biology-and-the-scientific-method/v/the-scientific-method"
+    target="_blank">The scientific method (video) |Khan Academy</a>
+  </div>
+  <div class="link-theme">basic-science</div>
+  <div class="link-level">Newbie</div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://www.khanacademy.org/science/high-school-biology/hs-biology-foundations/hs-biology-and-the-scientific-method/v/the-scientific-method')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>Let's explore the scientific method. Which at first might
+      seem a bit intimidating, but when we walk through it, you'll
+      see that it's actually almost a common-sense way of looking
+      at the world and making progress in our understanding of the
+      world and feeling good about that progress of our
+      understanding of the world. [...]</p>
+    </div>
+  </div>
+</div>

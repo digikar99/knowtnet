@@ -1,0 +1,27 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://www.reddit.com/r/learnprogramming/wiki/faq"
+    target="_blank">r/learnprogramming FAQ</a>
+  </div>
+  <div class="link-theme">programming</div>
+  <div class="link-level">Newbie</div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://www.reddit.com/r/learnprogramming/wiki/faq')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>Welcome to /r/learnprogramming. This is a list of some of
+      the most frequently asked questions on this subreddit. If
+      your question is one of these, it has probably been answered
+      many times before ...</p>
+      <b>Getting Started</b>
+      <p>If you're interested in learning to code, it's very
+      helpful to start with the right mindset. This YouTube video
+      by Kevin Cheers does a great job of explaining the proper
+      perspective you should have when ...</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://medium.com/the-mission/willpower-doesnt-work-here-s-the-key-to-being-more-productive-according-to-neuroscience-f6c4257eb6b9"
+    target="_blank">Willpower Doesn’t Work. Here’s the Key to Being
+    More Productive According to Neuroscience - Medium</a>
+  </div>
+  <div class="link-theme">life</div>
+  <div class="link-level">Newbie</div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://medium.com/the-mission/willpower-doesnt-work-here-s-the-key-to-being-more-productive-according-to-neuroscience-f6c4257eb6b9')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">Mere willpower can be
+    unreliable. Supplement it with Implementation Intentions. (This
+    is actually a well studied phenomenon, having a Wikipedia page
+    of its own.) However, if you are too lazy to even use them, set
+    up The Grit Protocol.</div>
+  </div>
+</div>

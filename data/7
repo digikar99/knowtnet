@@ -1,0 +1,27 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://htdp.org/2019-02-24/part_preface.html"
+    target="_blank">How To Design Programs [book]</a>
+  </div>
+  <div class="link-theme">programming</div>
+  <div class="link-level">Newbie</div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://htdp.org/2019-02-24/part_preface.html')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>Rated 4/5 on Goodreads; the criticism being that it's too
+      slow; that it does not use C-style syntaxed languages.</p>
+      <p>In essence, if you find HTDP too easy, you may want to try
+      out Structure and Interpretation of Computer Programs; this
+      has been praised multiple times on multiple places including
+      softwareengineering.stackexchange.</p>
+      <p>SICP was in use as a textbook for an introductory(!)
+      programming course (6.001) at MIT until 2009 from 1980s(!);
+      and is still used, albeit for a more advanced 6.037.</p>
+    </div>
+  </div>
+</div>

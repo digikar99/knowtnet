@@ -1,0 +1,26 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://en.wikipedia.org/wiki/Occam%27s_razor#Justifications"
+    target="_blank">Occam's razor - Wikipedia</a>
+  </div>
+  <div class="link-theme">basic-science</div>
+  <div class="link-level">Newbie</div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://en.wikipedia.org/wiki/Occam%27s_razor#Justifications')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">Occam's razor (or Law of
+    Parsimony) is the problem-solving principle that states
+    "Entities should not be multiplied without necessity." [...] It
+    is sometimes paraphrased by a statement like "The simplest
+    solution is most likely the right one." but is the same as the
+    Razor only if results match. Occam's razor says that when
+    presented with competing hypotheses that make the same
+    predictions, one should select the solution with the fewest
+    assumptions, and it is not meant to be a way of choosing
+    between ...</div>
+  </div>
+</div>

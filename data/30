@@ -1,0 +1,29 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://www.reddit.com/r/Economics/wiki/faq_protectionism_and_development"
+    target="_blank">Trade and Protectionism in the Developing World
+    - r/economics wiki</a>
+  </div>
+  <div class="link-theme">economics</div>
+  <div class="link-level"></div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://www.reddit.com/r/Economics/wiki/faq_protectionism_and_development')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <ul>
+        <li>Does openness lead to growth?</li>
+        <li>An overview of the infant industry argument</li>
+        <li>Does protectionism work?</li>
+        <li>Conclusion</li>
+      </ul>
+      <b>Protectionism and Trade in the Developing World</b>
+      <p>A frequent topic of discussion is whether or not free
+      trade is beneficial for developing countries. Most of the
+      previous FAQ section on trade has focused on ...</p>
+    </div>
+  </div>
+</div>

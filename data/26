@@ -1,0 +1,17 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="http://www.iitb.ac.in/acad/" target="_blank">Academic
+    Homepage - IIT Bombay</a>
+  </div>
+  <div class="link-theme">iitb</div>
+  <div class="link-level"></div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('http://www.iitb.ac.in/acad/')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">[No preview available]</div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://www.quora.com/What-are-some-common-logical-fallacies-used-in-everyday-arguments"
+    target="_blank">What are some common logical fallacies used in
+    everyday arguments? - Quora</a>
+  </div>
+  <div class="link-theme">basic-science</div>
+  <div class="link-level">Newbie</div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://www.quora.com/What-are-some-common-logical-fallacies-used-in-everyday-arguments')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>(One of the answers)</p>
+      <p>Well, assuming “everyday discussion” includes those of a
+      political and/or religious nature, here are a few:</p>
+      <ol>
+        <li>Post hoc ergo propter hoc[1] fallacy. Literally, Latin
+        for “after this, therefore because of this,” this fallacy
+        occurs when people claim that just because two things
+        happened in succession that ...</li>
+      </ol>
+    </div>
+  </div>
+</div>

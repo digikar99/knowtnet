@@ -1,0 +1,27 @@
+<div class="link-box">
+  <div class="link-url">
+    <a href="https://en.wikipedia.org/wiki/Fluid_and_crystallized_intelligence"
+    target="_blank">Fluid and crystallized intelligence -
+    Wikipedia</a>
+  </div>
+  <div class="link-theme">life</div>
+  <div class="link-level">Newbie</div>
+  <br />
+  <div class="link-description"
+  onclick="pingAndOpen('https://en.wikipedia.org/wiki/Fluid_and_crystallized_intelligence')"
+  target="_blank">
+    <div class="read-more">
+      <span class="read-more-text">READ MORE</span>
+    </div>
+    <div class="description-contents">
+      <p>According to the theory published in 1971 by the
+      psychologist Raymond Cattell, general intelligence (g) is
+      subdivided into fluid intelligence (gf) and crystallized
+      intelligence (gc). Fluid intelligence is the ability to solve
+      novel reasoning problems and is correlated with a number of
+      important skills such as comprehension, problem solving, and
+      learning. Crystallized intelligence on the other hand is the
+      ability to ...</p>
+    </div>
+  </div>
+</div>
