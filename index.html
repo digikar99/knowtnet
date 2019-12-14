@@ -7,35 +7,47 @@
     var args = Array.prototype.slice.call(arguments, 0);
     __PS_MV_REG = [];
     return document.getElementById('info-panel-menu').style.width = document.getElementById('info-panel-menu').style.width === '80vw' ? '0' : '80vw';
-});</script></div><div id="responsive-browse-link-boxes"></div><script type="text/javascript">function resizeLinkIframe(event) {
-    var target1 = event.target.target;
-    var iframe = document.getElementsByName(target1)[0];
-    var iframeHeight = iframe.style.height;
-    __PS_MV_REG = [];
-    return iframe.style.height = iframeHeight === 0.9 * window.innerHeight + 'px' ? '0px' : 0.9 * window.innerHeight + 'px';
+});</script></div><div id="responsive-browse-link-boxes"></div><script type="text/javascript">if ('undefined' === typeof UNFETCHEDLINKS) {
+    var UNFETCHEDLINKS = (function () {
+        var collect1 = [];
+        for (var i = 0; i <= 5; i += 1) {
+            collect1.push(i);
+        };
+        __PS_MV_REG = [];
+        return collect1;
+    })();
 };
 if ('undefined' === typeof WAITINGFORAJAX) {
     var WAITINGFORAJAX = null;
 };
-window.onscroll = function (event) {
+$(document).on('wheel', function (event) {
     if (window.innerHeight + window.scrollY >= document.body.offsetHeight && !WAITINGFORAJAX) {
         console.log('bottom');
-        WAITINGFORAJAX = true;
         __PS_MV_REG = [];
         return getLinkFromServer();
     };
-};
+});
 function randomInt(maxInt) {
     __PS_MV_REG = [];
     return Math.floor(Math.random() * maxInt);
 };
 function getLinkFromServer() {
-    __PS_MV_REG = [];
-    return $.get('data/' + String(randomInt(6)), function (responseText) {
-        document.getElementById('responsive-browse-link-boxes').insertAdjacentHTML('beforeend', responseText);
+    if (0 < UNFETCHEDLINKS.length && !WAITINGFORAJAX) {
+        WAITINGFORAJAX = true;
+        var idx = randomInt(UNFETCHEDLINKS.length) + 1;
+        var linkId = UNFETCHEDLINKS[idx];
+        $.get({ url : 'data/' + String(linkId),
+                async : null,
+                success : function (responseText) {
+            console.log(linkId, 'fetched');
+            UNFETCHEDLINKS.splice(idx, 1);
+            __PS_MV_REG = [];
+            return document.getElementById('responsive-browse-link-boxes').insertAdjacentHTML('beforeend', responseText);
+        }
+              });
         __PS_MV_REG = [];
         return WAITINGFORAJAX = null;
-    });
+    };
 };
 $('.link-rating').find('a').click(promptForLogin);
 function getLinkBoxWithUpvoteBtn(elt) {
@@ -148,15 +160,4 @@ function pingAndOpen(url) {
 };
 function sleep(ms) {
     return new Promise;
-};
-$(document).ready(function () {
-    var args = Array.prototype.slice.call(arguments, 0);
-    for (var i = 0; i <= 5; i += 1) {
-        if ($('#responsive-browse-link-boxes').height() < $(window).height()) {
-            getLinkFromServer();
-            console.log('called');
-        } else {
-            console.log('dont-call');
-        };
-    };
-});</script></html>
+};</script></html>

@@ -81,39 +81,40 @@
 (defun generate-browse-link-box-js (&key theme-name user)
   (declare (sb-ext:muffle-conditions cl:warning))
   (parenscript:ps*
-   `(defun resize-link-iframe (event)
-      (let* ((target (@ event target target))
-             (iframe (@ ((@ document get-elements-by-name)
-                         target)
-                        (aref 0)))
-             (iframe-height iframe.style.height))
-        (setf iframe.style.height
-              (if (= iframe-height
-                     (+ (* 0.9 window.inner-height) "px"))
-                  "0px"
-                  (+ (* 0.9 window.inner-height) "px")))))
+
+   `(defvar *unfetched-links* (loop for i from 0 to ,(length links)
+                                 collect i))
    
    `(defvar *waiting-for-ajax* nil)
-   `(setf (@ window onscroll) 
-          (lambda (event) 
-            (when (and (>= (+ (@ window inner-height)
-                              (@ window scroll-y))
-                           (@ document body offset-height))
-                       (not *waiting-for-ajax*))
-              ((@ console log) "bottom")
-              (setq *waiting-for-ajax* t)
-              (get-link-from-server))))
+   `(chain ($ document)
+           (on "wheel"
+               (lambda (event) 
+                 (when (and (>= (+ (@ window inner-height)
+                                   (@ window scroll-y))
+                                (@ document body offset-height))
+                            (not *waiting-for-ajax*))
+                   ((@ console log) "bottom")
+                   (get-link-from-server)))))
 
    `(defun random-int (max-int)
       (|Math.floor| (* (|Math.random|) max-int)))
    
    `(defun get-link-from-server ()
-      ($.get (+ "data/" (|String| (random-int ,(1+ (length links)))))
-             (lambda (response-text)
-               (chain ((@ document get-element-by-id) "responsive-browse-link-boxes")
-                      (insert-adjacent-h-t-m-l "beforeend" response-text))
-               ;; ((@ console log) response-text)
-               (setq *waiting-for-ajax* nil))))
+      (when (and (< 0 (length *unfetched-links*))
+                 (not *waiting-for-ajax*))
+        (setq *waiting-for-ajax* t)    
+        (let* ((idx (1+ (random-int (length *unfetched-links*))))
+               (link-id (aref *unfetched-links* idx)))
+          ($.get
+           (ps:create url (+ "data/" (|String| link-id))
+                      async nil
+                      success (lambda (response-text)
+                                (console.log link-id "fetched")
+                                (chain *unfetched-links* (splice idx 1))
+                                (chain ((@ document get-element-by-id)
+                                        "responsive-browse-link-boxes")
+                                       (insert-adjacent-h-t-m-l "beforeend" response-text)))))
+          (setq *waiting-for-ajax* nil))))
 
    `(chain ($ ".link-rating")
            (find "a")
@@ -229,14 +230,15 @@
    `(defun sleep (ms)
       (ps:new |Promise|))
 
-   `(chain ($ document)
-           (ready
-            λ(loop for i from 0 to 5
-                do (if (< ((@ ($ "#responsive-browse-link-boxes") height))
-                          ((@ ($ window) height)))
-                       (progn (get-link-from-server)
-                              (console.log "called"))
-                       (console.log "dont-call")))))))
+   ;; `(chain ($ document)
+   ;;         (ready
+   ;;          λ(loop for i from 0 to 5
+   ;;              do (if (< ((@ ($ "#responsive-browse-link-boxes") height))
+   ;;                        ((@ ($ window) height)))
+   ;;                     (progn (get-link-from-server)
+   ;;                            (console.log "called"))
+   ;;                     (console.log "dont-call")))))
+   ))
 
 (defun generate-filter-form (&key front-page-form selected-theme known-filter-page-form)
   (let ((cl-markup:*auto-escape* nil))
