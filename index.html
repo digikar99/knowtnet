@@ -154,8 +154,8 @@ function showLoader() {
     __PS_MV_REG = [];
     return document.getElementById('loader-background').style.display = 'block';
 };
-$('.link-share-icon').click(function (e) {
-    var linkBox = getLinkBoxWithShareBtn(e.target);
+function shareLink(e) {
+    var linkBox = getLinkBoxWithShareBtn(e);
     var linkUrl = getUrlOfLinkBox(linkBox);
     console.log(linkBox);
     console.log(linkUrl);
@@ -182,7 +182,7 @@ $('.link-share-icon').click(function (e) {
             return console.error(err);
         });
     };
-});
+};
 console.log($('#browse-link-boxes').height(), $(window).height());
 $('img').width('90%');
 function pingAndOpen(url) {

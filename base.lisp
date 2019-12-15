@@ -59,7 +59,8 @@
                          "MARK"
                          (:br)
                          "as known")
-                     (:div :href "#/" :class "link-share"
+                     (:div :class "link-share"
+                           :onclick "javascript:shareLink(this)"
                          (:i :class "material-icons-outlined link-share-icon" "share"
                              (:span :class "link-share-tooltip" "COPY LINK"))))))))
 
@@ -212,10 +213,9 @@
                    style.display)
             "block"))
    
-   `((@ ($ ".link-share-icon") click)
-     (lambda (e)
-       (let* ((link-box (get-link-box-with-share-btn e.target))
-              (link-url (get-url-of-link-box link-box)))
+   `(defun share-link (e)
+     (let* ((link-box (get-link-box-with-share-btn e))
+            (link-url (get-url-of-link-box link-box)))
          (console.log link-box)
          (console.log link-url)
          (if navigator.share
@@ -233,7 +233,7 @@
                     clipboard
                     (write-text link-url)
                     (then λ(console.log "copied")
-                          (lambda (err) (console.error err))))))))
+                          (lambda (err) (console.error err)))))))
 
    `((@ console log)
      ((@ ($ "#browse-link-boxes") height))
