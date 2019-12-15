@@ -11,21 +11,20 @@
 
 (defun $ (object) (write-to-string object))
 (defun concat (&rest strings) (apply #'concatenate 'string strings))
+(setq *compile-verbose* nil
+      *compile-print* nil)
 
 (load "config.lisp")
 (push (car (uiop:directory* "."))
       clsql-sys:*foreign-library-search-paths*)
 
-(clsql:connect *ktdb-connection-spec* :database-type :mysql)
+(clsql:connect *ktdb-connection-spec* :database-type :mysql :if-exists :old)
 (load *orm-definition-file*)
 (defvar links (clsql:select 'link :flatp t))
 (defvar themes (clsql:select 'theme :flatp t))
 (load *base-file*)
 
-(iter (repeat 5) (terpri)
-      (finally (iter (repeat 80) (write-char #\=)
-                     (finally (format t "~%Preparations Done. Running run-me.lisp~%")))))
-
+(format t "~%Preparations Done. Running run-me.lisp~%")
 (format t "Total links: ~D~%" (length links))
 
 ;; generate link-files

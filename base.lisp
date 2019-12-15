@@ -117,22 +117,36 @@
 
    `(defun random-int (max-int)
       (|Math.floor| (* (|Math.random|) max-int)))
+
+   `(defvar *selected-theme* "")
    
    `(defun get-link-from-server ()
       (when (and (< 0 (length *fetchable-links*))
                  (not *waiting-for-ajax*))
         (setq *waiting-for-ajax* t)    
         (let* ((idx (1+ (random-int (length *fetchable-links*))))
-               (link-id (aref *fetchable-links* idx)))
+               (link-id (aref *fetchable-links* idx))
+               (filter (cond ((not (chain ',(mapcar #'theme-name themes)
+                                          (includes *selected-theme*)))
+                              (lambda (fetched-link-box) t))
+                             (t
+                              (lambda (fetched-link-box)
+                                (let ((theme (get-theme-of-link-box fetched-link-box))))
+                                (console.log theme)
+                                (string= *selected-theme*
+                                         theme))))))
           ($.get
            (ps:create url (+ "data/" (|String| link-id))
                       async nil
                       success (lambda (response-text)
-                                (console.log link-id "fetched")
-                                (chain *fetchable-links* (splice idx 1))
-                                (chain ((@ document get-element-by-id)
-                                        "responsive-browse-link-boxes")
-                                       (insert-adjacent-h-t-m-l "beforeend" response-text)))))
+                                (console.log ($ response-text))
+                                (when (filter ($ response-text))
+                                  (chain ((@ document get-element-by-id)
+                                          "responsive-browse-link-boxes")
+                                         (insert-adjacent-h-t-m-l "beforeend"
+                                                                  response-text))
+                                  (console.log link-id "fetched")
+                                  (chain *fetchable-links* (splice idx 1))))))
           (setq *waiting-for-ajax* nil))))
 
    `(chain ($ ".link-rating")
@@ -143,7 +157,8 @@
 
    `(defun get-link-box-with-link-action (elt)
       (chain ($ elt) (parent) (parent)))
-   
+   `(defun get-theme-of-link-box (link-box)
+      (chain link-box (children) 1 inner-text))
    `(defun get-link-box-with-upvote-btn (elt)
       (chain ($ elt) (parent) (parent)))
    `(defun get-link-box-with-share-btn (elt)
@@ -161,43 +176,25 @@
              first-element-child
              inner-html))
 
-   `(defun update-link-rating (e)
-      ;; ((@ console log) "clicke!")
-      (let* ((id ((@ e attr) "id"))
-             (link-id ((@ id substr) 3))
-             (uri ((@ ,+rating-page-up+ concat) "/" link-id))
-             (elt e))
-        ((@ $ ajax)
-         (ps:create type "POST"
-                    url uri
-                    data (ps:create)
-                    cache false
-                    success (lambda (response-text)
-                              (update-upvote-button response-text elt))))))
-
-   `(defun update-upvote-button (response-text elt)
-      (let ((i-tag (aref ((@ ($ elt) find) "i") 0))
-            (upvote-count (aref ((@ ($ elt) siblings))
-                                0)))
-        ((@ ($ upvote-count) text) response-text)
-        (if ((@ ($ i-tag) has-class) "not-upvoted")
-            (progn
-              ((@ ($ i-tag) add-class) "upvoted")
-              ((@ ($ i-tag) remove-class) "not-upvoted")
-              ((@ ($ i-tag) add-class) "material-icons")
-              ((@ ($ i-tag) remove-class) "material-icons-outlined"))
-            (progn
-              ((@ ($ i-tag) remove-class) "upvoted")
-              ((@ ($ i-tag) add-class) "not-upvoted")
-              ((@ ($ i-tag) add-class) "material-icons-outlined")
-              ((@ ($ i-tag) remove-class) "material-icons")))))
-   
    `((@ ($ ".link-action") click)
      ;; mark-as-known is handled by pinging the appropriate link
      ;; - perhaps a bad design choice
      (lambda ()
        (console.log ($ this))
        (chain (get-link-box-with-link-action this) (remove))))
+
+   `(defun update-selected-theme ()
+      (setf *selected-theme* (chain ($ "#filter-form option:selected") (html)))
+      (let ((link-boxes (chain ($ "#responsive-browse-link-boxes") (children))))
+        (loop for i from 0 to (1- (length link-boxes))
+           if (not (string= *selected-theme*
+                            (get-theme-of-link-box ($ (aref link-boxes i)))))
+           do (chain (aref link-boxes i) (remove))))
+      (let ((link-boxes (chain ($ "#responsive-browse-link-boxes") (children))))
+        ;; do again since copies are made
+        (when (< (length link-boxes) 2)
+          (get-link-from-server)
+          (get-link-from-server))))
 
    `(defun prompt-for-login ()
       ((@ ($ "#login-prompt") show)))
@@ -270,14 +267,12 @@
                  (:input :type "submit" :id "front-page-btn"
                          :value "Return to Front Page"))
          `(:span))
-     `(:form :id "filter-form" :method "GET"
-             :action ,(if known-filter-page-form
-                         +filter-known-page+
-                         +filter-front-page+)
-             ,(generate-theme-selection-box selected-theme)
-             (:input :type "submit" :id "filter-btn"
-                     :class "material-icons"
-                     :value "search")))))
+     `(:div :id "filter-form" :method "GET"
+            ,(generate-theme-selection-box selected-theme)
+            (:input :type "submit" :id "filter-btn"
+                    :class "material-icons"
+                    :onclick "updateSelectedTheme()"
+                    :value "search")))))
 
 (defun generate-responsive-info-panel (&key (filter-page-form t) selected-theme
                                          front-page-form known-filter-page-form)

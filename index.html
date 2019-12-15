@@ -3,7 +3,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-152031047-1');</script><title>Knowledge Transfer Network</title><script src="css/jquery-3.4.1.min.js"></script><title>Knowledge Transfer Network - Serverless</title><link rel="stylesheet" href="css/front.css" type="text/css"><link rel="stylesheet" href="css/link-box.css" type="text/css"><div id="responsive-info-panel"><div id="site-title"><span id="site-title-text" class="text-left">KnowTNet</span><span id="site-title-spacer" class="visible-small"></span><i id="info-panel-menu-btn" class="material-icons text-right visible-small">menu</i></div><span><form id="filter-form" method="GET" action="/filter"><select name="theme" required="required"><option value="">Select Theme</option><option value="programming">programming</option><option value="economics">economics</option><option value="lisp">lisp</option><option value="basic-science">basic-science</option><option value="artificial-intelligence">artificial-intelligence</option><option value="india">india</option><option value="iitb">iitb</option><option value="life">life</option></select><input type="submit" id="filter-btn" class="material-icons" value="search"></form><br><br><br><br><div id="username" class="text-center">Welcome to KnowTNet!</div><div id="info-panel-menu"><a href="/">Home</a><a href="/known-links">View Known Links</a><a href="/about">About Us</a><div id="info-panel-spacer"></div><a href="/logout-server">Log Out</a><a href="/logout-persistent-server">Log out on all devices</a><p id="ktn" class="text-center">KNOWLEDGE TRANSFER NETWORK</p></div><div id="loader-background"><div id="loader"></div></div><br class="visible-large"><br class="visible-large"><br class="visible-large"><script type="text/javascript">$('#info-panel-menu-btn').click(function () {
+  gtag('config', 'UA-152031047-1');</script><title>Knowledge Transfer Network</title><script src="css/jquery-3.4.1.min.js"></script><title>Knowledge Transfer Network - Serverless</title><link rel="stylesheet" href="css/front.css" type="text/css"><link rel="stylesheet" href="css/link-box.css" type="text/css"><div id="responsive-info-panel"><div id="site-title"><span id="site-title-text" class="text-left">KnowTNet</span><span id="site-title-spacer" class="visible-small"></span><i id="info-panel-menu-btn" class="material-icons text-right visible-small">menu</i></div><span><div id="filter-form" method="GET"><select name="theme" required="required"><option value="">Select Theme</option><option value="programming">programming</option><option value="economics">economics</option><option value="lisp">lisp</option><option value="basic-science">basic-science</option><option value="artificial-intelligence">artificial-intelligence</option><option value="india">india</option><option value="iitb">iitb</option><option value="life">life</option></select><input type="submit" id="filter-btn" class="material-icons" onclick="updateSelectedTheme()" value="search"></div><br><br><br><br><div id="username" class="text-center">Welcome to KnowTNet!</div><div id="info-panel-menu"><a href="/">Home</a><a href="/known-links">View Known Links</a><a href="/about">About Us</a><div id="info-panel-spacer"></div><a href="/logout-server">Log Out</a><a href="/logout-persistent-server">Log out on all devices</a><p id="ktn" class="text-center">KNOWLEDGE TRANSFER NETWORK</p></div><div id="loader-background"><div id="loader"></div></div><br class="visible-large"><br class="visible-large"><br class="visible-large"><script type="text/javascript">$('#info-panel-menu-btn').click(function () {
     var args = Array.prototype.slice.call(arguments, 0);
     __PS_MV_REG = [];
     return document.getElementById('info-panel-menu').style.width = document.getElementById('info-panel-menu').style.width === '80vw' ? '0' : '80vw';
@@ -61,18 +61,32 @@ function randomInt(maxInt) {
     __PS_MV_REG = [];
     return Math.floor(Math.random() * maxInt);
 };
+if ('undefined' === typeof SELECTEDTHEME) {
+    var SELECTEDTHEME = '';
+};
 function getLinkFromServer() {
     if (0 < FETCHABLELINKS.length && !WAITINGFORAJAX) {
         WAITINGFORAJAX = true;
         var idx = randomInt(FETCHABLELINKS.length) + 1;
         var linkId = FETCHABLELINKS[idx];
+        var filter = !['programming', 'economics', 'lisp', 'basic-science', 'artificial-intelligence', 'india', 'iitb', 'life'].includes(SELECTEDTHEME) ? function (fetchedLinkBox) {
+            return true;
+        } : function (fetchedLinkBox) {
+            var theme = getThemeOfLinkBox(fetchedLinkBox);
+            console.log(theme);
+            __PS_MV_REG = [];
+            return SELECTEDTHEME === theme;
+        };
         $.get({ url : 'data/' + String(linkId),
                 async : null,
                 success : function (responseText) {
-            console.log(linkId, 'fetched');
-            FETCHABLELINKS.splice(idx, 1);
-            __PS_MV_REG = [];
-            return document.getElementById('responsive-browse-link-boxes').insertAdjacentHTML('beforeend', responseText);
+            console.log($(responseText));
+            if (filter($(responseText))) {
+                document.getElementById('responsive-browse-link-boxes').insertAdjacentHTML('beforeend', responseText);
+                console.log(linkId, 'fetched');
+                __PS_MV_REG = [];
+                return FETCHABLELINKS.splice(idx, 1);
+            };
         }
               });
         __PS_MV_REG = [];
@@ -83,6 +97,9 @@ $('.link-rating').find('a').click(promptForLogin);
 function getLinkBoxWithLinkAction(elt) {
     __PS_MV_REG = [];
     return $(elt).parent().parent();
+};
+function getThemeOfLinkBox(linkBox) {
+    return linkBox.children()[1].innerText;
 };
 function getLinkBoxWithUpvoteBtn(elt) {
     __PS_MV_REG = [];
@@ -98,45 +115,27 @@ function getUrlOfLinkBox(linkBox) {
 function getTitleOfLinkBox(linkBox) {
     return linkBox.get(0).firstElementChild.firstElementChild.innerHtml;
 };
-function updateLinkRating(e) {
-    var id = e.attr('id');
-    var linkId = id.substr(3);
-    var uri = '/api/rating/up/'.concat('/', linkId);
-    var elt = e;
-    __PS_MV_REG = [];
-    return $.ajax({ type : 'POST',
-                    url : uri,
-                    data : {  },
-                    cache : false,
-                    success : function (responseText) {
-        __PS_MV_REG = [];
-        return updateUpvoteButton(responseText, elt);
-    }
-                  });
-};
-function updateUpvoteButton(responseText, elt) {
-    var iTag = $(elt).find('i')[0];
-    var upvoteCount = $(elt).siblings()[0];
-    $(upvoteCount).text(responseText);
-    if ($(iTag).hasClass('not-upvoted')) {
-        $(iTag).addClass('upvoted');
-        $(iTag).removeClass('not-upvoted');
-        $(iTag).addClass('material-icons');
-        __PS_MV_REG = [];
-        return $(iTag).removeClass('material-icons-outlined');
-    } else {
-        $(iTag).removeClass('upvoted');
-        $(iTag).addClass('not-upvoted');
-        $(iTag).addClass('material-icons-outlined');
-        __PS_MV_REG = [];
-        return $(iTag).removeClass('material-icons');
-    };
-};
 $('.link-action').click(function () {
     console.log($(this));
     __PS_MV_REG = [];
     return getLinkBoxWithLinkAction(this).remove();
 });
+function updateSelectedTheme() {
+    SELECTEDTHEME = $('#filter-form option:selected').html();
+    var linkBoxes = $('#responsive-browse-link-boxes').children();
+    var _js3 = linkBoxes.length - 1;
+    for (var i = 0; i <= _js3; i += 1) {
+        if (SELECTEDTHEME !== getThemeOfLinkBox($(linkBoxes[i]))) {
+            linkBoxes[i].remove();
+        };
+    };
+    var linkBoxes4 = $('#responsive-browse-link-boxes').children();
+    if (linkBoxes4.length < 2) {
+        getLinkFromServer();
+        __PS_MV_REG = [];
+        return getLinkFromServer();
+    };
+};
 function promptForLogin() {
     __PS_MV_REG = [];
     return $('#login-prompt').show();
