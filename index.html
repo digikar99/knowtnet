@@ -7,14 +7,44 @@
     var args = Array.prototype.slice.call(arguments, 0);
     __PS_MV_REG = [];
     return document.getElementById('info-panel-menu').style.width = document.getElementById('info-panel-menu').style.width === '80vw' ? '0' : '80vw';
-});</script></div><div id="responsive-browse-link-boxes"></div><script type="text/javascript">if ('undefined' === typeof UNFETCHEDLINKS) {
-    var UNFETCHEDLINKS = (function () {
-        var collect1 = [];
+});</script></div><div id="responsive-browse-link-boxes"></div><script type="text/javascript">if ('undefined' === typeof KNOWNLINKSVARNAME) {
+    var KNOWNLINKSVARNAME = 'known';
+};
+if (localStorage[KNOWNLINKSVARNAME]) {
+    if ('undefined' === typeof KNOWNLINKS) {
+        var KNOWNLINKS = JSON.parse('[' + localStorage[KNOWNLINKSVARNAME] + ']');
+    };
+} else {
+    if ('undefined' === typeof KNOWNLINKS) {
+        var KNOWNLINKS = (function () {
+            var collect1 = [];
+            for (var i = 0; i <= 37; i += 1) {
+                collect1.push(0);
+            };
+            __PS_MV_REG = [];
+            return collect1;
+        })();
+    };
+};
+function markAsKnownAndRemove(triggerElt, id) {
+    KNOWNLINKS[id] = 1;
+    localStorage[KNOWNLINKSVARNAME] = KNOWNLINKS;
+    __PS_MV_REG = [];
+    return getLinkBoxWithLinkAction(triggerElt).remove();
+};
+function knownP(id) {
+    return KNOWNLINKS[id];
+};
+if ('undefined' === typeof FETCHABLELINKS) {
+    var FETCHABLELINKS = (function () {
+        var collect2 = [];
         for (var i = 0; i <= 37; i += 1) {
-            collect1.push(i);
+            if (!knownP(i)) {
+                collect2.push(i);
+            };
         };
         __PS_MV_REG = [];
-        return collect1;
+        return collect2;
     })();
 };
 if ('undefined' === typeof WAITINGFORAJAX) {
@@ -32,15 +62,15 @@ function randomInt(maxInt) {
     return Math.floor(Math.random() * maxInt);
 };
 function getLinkFromServer() {
-    if (0 < UNFETCHEDLINKS.length && !WAITINGFORAJAX) {
+    if (0 < FETCHABLELINKS.length && !WAITINGFORAJAX) {
         WAITINGFORAJAX = true;
-        var idx = randomInt(UNFETCHEDLINKS.length) + 1;
-        var linkId = UNFETCHEDLINKS[idx];
+        var idx = randomInt(FETCHABLELINKS.length) + 1;
+        var linkId = FETCHABLELINKS[idx];
         $.get({ url : 'data/' + String(linkId),
                 async : null,
                 success : function (responseText) {
             console.log(linkId, 'fetched');
-            UNFETCHEDLINKS.splice(idx, 1);
+            FETCHABLELINKS.splice(idx, 1);
             __PS_MV_REG = [];
             return document.getElementById('responsive-browse-link-boxes').insertAdjacentHTML('beforeend', responseText);
         }
@@ -50,6 +80,10 @@ function getLinkFromServer() {
     };
 };
 $('.link-rating').find('a').click(promptForLogin);
+function getLinkBoxWithLinkAction(elt) {
+    __PS_MV_REG = [];
+    return $(elt).parent().parent();
+};
 function getLinkBoxWithUpvoteBtn(elt) {
     __PS_MV_REG = [];
     return $(elt).parent().parent();
@@ -99,11 +133,9 @@ function updateUpvoteButton(responseText, elt) {
     };
 };
 $('.link-action').click(function () {
-    var args = Array.prototype.slice.call(arguments, 0);
     console.log($(this));
-    $(this).parent().parent().remove();
     __PS_MV_REG = [];
-    return sharePromptIsOpen = null;
+    return getLinkBoxWithLinkAction(this).remove();
 });
 function promptForLogin() {
     __PS_MV_REG = [];

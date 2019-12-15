@@ -46,20 +46,22 @@
                      (:div :class "description-contents"
                            ,description))
                (:div :class "link-actions"
-                     (:div :class "link-action" :href "#/"
-                         :style "background-color:#e6ffcc;"
+                     (:div :class "link-action"
+                           :style "background-color:#e6ffcc;"
+                           :onclick "javascript:getLinkBoxWithLinkAction(this).remove()"
                          "IGNORE"
                          (:br)
                          "for now")
-                     (:div :class "link-action" :href "#/"
-                         :style "background-color:#e6ffcc;"
+                     (:div :class "link-action"
+                           :style "background-color:#e6ffcc;"
+                           :onclick ,(concat "javascript:markAsKnownAndRemove(this, "
+                                             str-id ")")
                          "MARK"
                          (:br)
                          "as known")
                      (:div :href "#/" :class "link-share"
                          (:i :class "material-icons-outlined link-share-icon" "share"
-                             (:span :class "link-share-tooltip" "COPY LINK"))))
-               ))))
+                             (:span :class "link-share-tooltip" "COPY LINK"))))))))
 
 (defun generate-loader ()
   (cl-markup:markup (:div :id "loader-background" (:div :id "loader" ()))))
@@ -81,7 +83,23 @@
   (declare (sb-ext:muffle-conditions cl:warning))
   (parenscript:ps*
 
-   `(defvar *unfetched-links* (loop for i from 0 to ,(length links)
+   `(defvar *known-links-var-name* "known")
+   `(if (aref local-storage *known-links-var-name*)
+        (defvar *known-links*
+          (|JSON.parse| (+ "[" (aref local-storage *known-links-var-name*) "]")))
+        (defvar *known-links*
+          (loop for i from 0 to ,(length links)
+               collect 0)))
+   
+   `(defun mark-as-known-and-remove (trigger-elt id)
+      (setf (aref *known-links* id) 1)
+      (setf (aref local-storage *known-links-var-name*) *known-links*)
+      (chain (get-link-box-with-link-action trigger-elt) (remove)))
+
+   `(defun known-p (id) (aref *known-links* id))
+
+   `(defvar *fetchable-links* (loop for i from 0 to ,(length links)
+                                 if (not (known-p i))
                                  collect i))
    
    `(defvar *waiting-for-ajax* nil)
@@ -99,17 +117,17 @@
       (|Math.floor| (* (|Math.random|) max-int)))
    
    `(defun get-link-from-server ()
-      (when (and (< 0 (length *unfetched-links*))
+      (when (and (< 0 (length *fetchable-links*))
                  (not *waiting-for-ajax*))
         (setq *waiting-for-ajax* t)    
-        (let* ((idx (1+ (random-int (length *unfetched-links*))))
-               (link-id (aref *unfetched-links* idx)))
+        (let* ((idx (1+ (random-int (length *fetchable-links*))))
+               (link-id (aref *fetchable-links* idx)))
           ($.get
            (ps:create url (+ "data/" (|String| link-id))
                       async nil
                       success (lambda (response-text)
                                 (console.log link-id "fetched")
-                                (chain *unfetched-links* (splice idx 1))
+                                (chain *fetchable-links* (splice idx 1))
                                 (chain ((@ document get-element-by-id)
                                         "responsive-browse-link-boxes")
                                        (insert-adjacent-h-t-m-l "beforeend" response-text)))))
@@ -121,6 +139,9 @@
                        `λ(update-link-rating ($ this))
                        'prompt-for-login)))
 
+   `(defun get-link-box-with-link-action (elt)
+      (chain ($ elt) (parent) (parent)))
+   
    `(defun get-link-box-with-upvote-btn (elt)
       (chain ($ elt) (parent) (parent)))
    `(defun get-link-box-with-share-btn (elt)
@@ -172,10 +193,9 @@
    `((@ ($ ".link-action") click)
      ;; mark-as-known is handled by pinging the appropriate link
      ;; - perhaps a bad design choice
-     λ(progn
-        (console.log ($ this))
-        (chain ($ this) (parent) (parent) (remove))
-        (setq share-prompt-is-open nil)))
+     (lambda ()
+       (console.log ($ this))
+       (chain (get-link-box-with-link-action this) (remove))))
 
    `(defun prompt-for-login ()
       ((@ ($ "#login-prompt") show)))

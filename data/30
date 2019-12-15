@@ -27,11 +27,12 @@
     </div>
   </div>
   <div class="link-actions">
-    <div class="link-action" href="#/"
-    style="background-color:#e6ffcc;">IGNORE
+    <div class="link-action" style="background-color:#e6ffcc;"
+    onclick="javascript:getLinkBoxWithLinkAction(this).remove()">
+    IGNORE
     <br />for now</div>
-    <div class="link-action" href="#/"
-    style="background-color:#e6ffcc;">MARK
+    <div class="link-action" style="background-color:#e6ffcc;"
+    onclick="javascript:markAsKnownAndRemove(this, 30)">MARK
     <br />as known</div>
     <div href="#/" class="link-share">
       <i class="material-icons-outlined link-share-icon">share
