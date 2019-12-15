@@ -20,7 +20,7 @@
 (load *orm-definition-file*)
 (defvar links (clsql:select 'link :flatp t))
 (defvar themes (clsql:select 'theme :flatp t))
-(load *utilities-file*)
+(load *base-file*)
 
 (iter (repeat 5) (terpri)
       (finally (iter (repeat 80) (write-char #\=)

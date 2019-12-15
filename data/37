@@ -25,4 +25,16 @@
       animals ...</p>
     </div>
   </div>
+  <div class="link-actions">
+    <div class="link-action" href="#/"
+    style="background-color:#e6ffcc;">IGNORE
+    <br />for now</div>
+    <div class="link-action" href="#/"
+    style="background-color:#e6ffcc;">MARK
+    <br />as known</div>
+    <div href="#/" class="link-share">
+      <i class="material-icons-outlined link-share-icon">share
+      <span class="link-share-tooltip">COPY LINK</span></i>
+    </div>
+  </div>
 </div>

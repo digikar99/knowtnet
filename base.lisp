@@ -45,21 +45,20 @@
                            (:span :class "read-more-text" "READ MORE"))
                      (:div :class "description-contents"
                            ,description))
-               ;; (:div :class "link-actions"
-               ;;       (:a :class "link-action" :href "#/"
-               ;;           :style "background-color:#e6ffcc;"
-               ;;           "IGNORE"
-               ;;           (:br)
-               ;;           "for now")
-               ;;       (:a :class "link-action" :href "#/"
-               ;;           :ping ,(if user-id (concat +known+ "/" str-id) "")
-               ;;           :style "background-color:#e6ffcc;"
-               ;;           "MARK"
-               ;;           (:br)
-               ;;           "as known")
-               ;;       (:a :href "#/" :class "link-share"
-               ;;           (:i :class "material-icons-outlined link-share-icon" "share"
-               ;;               (:span :class "link-share-tooltip" "COPY LINK"))))
+               (:div :class "link-actions"
+                     (:div :class "link-action" :href "#/"
+                         :style "background-color:#e6ffcc;"
+                         "IGNORE"
+                         (:br)
+                         "for now")
+                     (:div :class "link-action" :href "#/"
+                         :style "background-color:#e6ffcc;"
+                         "MARK"
+                         (:br)
+                         "as known")
+                     (:div :href "#/" :class "link-share"
+                         (:i :class "material-icons-outlined link-share-icon" "share"
+                             (:span :class "link-share-tooltip" "COPY LINK"))))
                ))))
 
 (defun generate-loader ()
@@ -230,6 +229,7 @@
    `(defun sleep (ms)
       (ps:new |Promise|))
 
+   `(loop for i from 0 to 4 do (get-link-from-server))
    ;; `(chain ($ document)
    ;;         (ready
    ;;          λ(loop for i from 0 to 5

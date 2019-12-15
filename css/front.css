@@ -52,6 +52,7 @@ body, html{
 .link-box{
     display:block;
     padding:10px;
+		padding-bottom:50px; 				/* for buttons */
 		margin:auto;
     margin-bottom:20px;
     margin-top:20px;
@@ -159,11 +160,6 @@ body, html{
     font-size:16px;
 }
 
-.link-actions{
-		margin-left:calc(100% - 150px);
-		margin-right:none;
-}
-
 .link-action{
     display:inline-block;
     padding-top:6px;
@@ -173,10 +169,13 @@ body, html{
     text-decoration:none;
     color:black;
     font-size:12px;
+		float:left;
 }
 
 .link-share, .link-share:hover, .link-share:active{
 		color:black;
+		display:inline-block;
+		float:right;
 }
 .link-share-icon{
 		display:inline-block;

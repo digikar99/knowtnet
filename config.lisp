@@ -24,5 +24,5 @@
   (with-open-file (f "ktdb-connection-spec.lisp") (read f)))
 
 (defparameter *orm-definition-file* "orm-definitions.lisp")
-(defparameter *utilities-file* "utilities.lisp")
+(defparameter *base-file* "base.lisp")
 (defparameter *data-directory* "data/")
