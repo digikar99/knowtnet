@@ -22,8 +22,9 @@
     <div class="link-action" style="background-color:#e6ffcc;"
     onclick="javascript:markAsKnownAndRemove(this, 27)">MARK
     <br />as known</div>
-    <div class="link-share" onclick="javascript:shareLink(this)">
-      <i class="material-icons-outlined link-share-icon">share
+    <div class="link-share">
+      <i class="material-icons-outlined link-share-icon"
+      onclick="javascript:shareLink(this)">share
       <span class="link-share-tooltip">COPY LINK</span></i>
     </div>
   </div>

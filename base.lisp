@@ -60,9 +60,10 @@
                          (:br)
                          "as known")
                      (:div :class "link-share"
-                           :onclick "javascript:shareLink(this)"
-                         (:i :class "material-icons-outlined link-share-icon" "share"
-                             (:span :class "link-share-tooltip" "COPY LINK"))))))))
+                           (:i :class "material-icons-outlined link-share-icon"
+                               :onclick "javascript:shareLink(this)"
+                               "share"
+                               (:span :class "link-share-tooltip" "COPY LINK"))))))))
 
 (defun generate-loader ()
   (cl-markup:markup (:div :id "loader-background" (:div :id "loader" ()))))
@@ -218,6 +219,7 @@
             (link-url (get-url-of-link-box link-box)))
          (console.log link-box)
          (console.log link-url)
+         ;; only works over https!
          (if navigator.share
              (progn (show-loader)
                (set-timeout hide-loader 1000)

@@ -63,6 +63,7 @@
      (:link :rel "stylesheet" :href "css/link-box.css" :type "text/css")
      (generate-responsive-info-panel)
      (:div :id "responsive-browse-link-boxes" ())
+     (generate-loader)
      (:script :type "text/javascript"
               (generate-browse-link-box-js)))))
 
