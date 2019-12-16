@@ -4,7 +4,8 @@
                 :trivia
                 :cl-markup
                 :reader
-                :parenscript) :silent t)
+                :parenscript
+                :alexandria) :silent t)
 (use-package :iterate)
 (import '(ps:chain ps:@))
 
@@ -24,14 +25,20 @@
 (defvar themes (clsql:select 'theme :flatp t))
 (load *base-file*)
 
-(format t "~%Preparations Done. Running run-me.lisp~%")
+(format t "Preparations Done. Running run-me.lisp~%")
 (format t "Total links: ~D~%" (length links))
 
+(reader:enable-reader-syntax 'hash-table 'get-val)
+(defvar *theme-link-id-list-hash-table* {})
 ;; generate link-files
 (iter (for link in links)
       (let* ((theme (car (link-themes link)))
              (link-file (concat *data-directory* ($ (link-id link)))))
+        (push (link-id link) [*theme-link-id-list-hash-table* theme])
         (with-tidy-xml link-file (generate-browse-link-box link theme))))
+
+(iter (for (theme link-id-list) in-hashtable *theme-link-id-list-hash-table*)
+      (format t "  ~D links in ~D~%" (length link-id-list) theme))
 
 ;; generate index.html
 (with-tidy-xml "index.html"

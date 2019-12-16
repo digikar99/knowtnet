@@ -91,7 +91,12 @@
           (|JSON.parse| (+ "[" (aref local-storage *known-links-var-name*) "]")))
         (defvar *known-links*
           (loop for i from 0 to ,(length links)
-               collect 0)))
+             collect 0)))
+
+   `(defvar *theme-link-id-list-hash-table*
+      (ps:create ,@(iter (for (theme link-id-list) in-hashtable
+                              *theme-link-id-list-hash-table*)
+                         (appending `(,theme ',link-id-list)))))
    
    `(defun mark-as-known-and-remove (trigger-elt id)
       (setf (aref *known-links* id) 1)
@@ -100,11 +105,13 @@
 
    `(defun known-p (id) (aref *known-links* id))
 
+   ;; set *fetchable-links* on every selected-theme update
    `(defvar *fetchable-links* (loop for i from 0 to ,(length links)
                                  if (not (known-p i))
                                  collect i))
    
    `(defvar *waiting-for-ajax* nil)
+
    `(chain ($ document)
            (on "wheel"
                (lambda (event) 
@@ -121,32 +128,22 @@
    `(defvar *selected-theme* "")
    
    `(defun get-link-from-server ()
-      (when (and (< 0 (length *fetchable-links*))
+      (when (and (< 1 (length *fetchable-links*))
                  (not *waiting-for-ajax*))
         (setq *waiting-for-ajax* t)    
         (let* ((idx (1+ (random-int (length *fetchable-links*))))
-               (link-id (aref *fetchable-links* idx))
-               (filter (cond ((not (chain ',(mapcar #'theme-name themes)
-                                          (includes *selected-theme*)))
-                              (lambda (fetched-link-box) t))
-                             (t
-                              (lambda (fetched-link-box)
-                                (let ((theme (get-theme-of-link-box fetched-link-box))))
-                                (console.log theme)
-                                (string= *selected-theme*
-                                         theme))))))
+               (link-id (aref *fetchable-links* idx)))
           ($.get
            (ps:create url (+ "data/" (|String| link-id))
                       async nil
                       success (lambda (response-text)
                                 (console.log ($ response-text))
-                                (when (filter ($ response-text))
-                                  (chain ((@ document get-element-by-id)
-                                          "responsive-browse-link-boxes")
-                                         (insert-adjacent-h-t-m-l "beforeend"
-                                                                  response-text))
-                                  (console.log link-id "fetched")
-                                  (chain *fetchable-links* (splice idx 1))))))
+                                (console.log link-id "fetched")
+                                (chain *fetchable-links* (splice idx 1))
+                                (chain ((@ document get-element-by-id)
+                                        "responsive-browse-link-boxes")
+                                       (insert-adjacent-h-t-m-l "beforeend"
+                                                                response-text)))))
           (setq *waiting-for-ajax* nil))))
 
    `(chain ($ ".link-rating")
@@ -184,17 +181,21 @@
        (chain (get-link-box-with-link-action this) (remove))))
 
    `(defun update-selected-theme ()
+      ;; update selected-theme
       (setf *selected-theme* (chain ($ "#filter-form option:selected") (html)))
-      (let ((link-boxes (chain ($ "#responsive-browse-link-boxes") (children))))
-        (loop for i from 0 to (1- (length link-boxes))
-           if (not (string= *selected-theme*
-                            (get-theme-of-link-box ($ (aref link-boxes i)))))
-           do (chain (aref link-boxes i) (remove))))
-      (let ((link-boxes (chain ($ "#responsive-browse-link-boxes") (children))))
-        ;; do again since copies are made
-        (when (< (length link-boxes) 2)
-          (get-link-from-server)
-          (get-link-from-server))))
+
+      ;; update fetchable-links
+      (setf *fetchable-links* (|JSON.parse| (|JSON.stringify|
+                                                    (aref *theme-link-id-list-hash-table*
+                                                          *selected-theme*))))
+      (chain *fetchable-links* (unshift 0))
+
+      ;; delete all children
+      (chain ($ "#responsive-browse-link-boxes") (html ""))
+
+      ;; get some children to try making it scrollable
+      (loop for i from 0 to 3
+           do (get-link-from-server)))
 
    `(defun prompt-for-login ()
       ((@ ($ "#login-prompt") show)))

@@ -26,6 +26,16 @@ if (localStorage[KNOWNLINKSVARNAME]) {
         })();
     };
 };
+if ('undefined' === typeof THEMELINKIDLISTHASHTABLE) {
+    var THEMELINKIDLISTHASHTABLE = { 'economics' : [30, 2, 1],
+                                     'india' : [21, 4, 3],
+                                     'programming' : [32, 31, 22, 7, 5],
+                                     'lisp' : [9, 8],
+                                     'basic-science' : [14, 13, 12, 11, 10],
+                                     'life' : [38, 37, 36, 35, 34, 33, 23, 20, 19, 18, 17, 16, 15],
+                                     'iitb' : [29, 28, 27, 26, 25, 24]
+                                   };
+};
 function markAsKnownAndRemove(triggerElt, id) {
     KNOWNLINKS[id] = 1;
     localStorage[KNOWNLINKSVARNAME] = KNOWNLINKS;
@@ -65,28 +75,18 @@ if ('undefined' === typeof SELECTEDTHEME) {
     var SELECTEDTHEME = '';
 };
 function getLinkFromServer() {
-    if (0 < FETCHABLELINKS.length && !WAITINGFORAJAX) {
+    if (1 < FETCHABLELINKS.length && !WAITINGFORAJAX) {
         WAITINGFORAJAX = true;
         var idx = randomInt(FETCHABLELINKS.length) + 1;
         var linkId = FETCHABLELINKS[idx];
-        var filter = !['programming', 'economics', 'lisp', 'basic-science', 'artificial-intelligence', 'india', 'iitb', 'life'].includes(SELECTEDTHEME) ? function (fetchedLinkBox) {
-            return true;
-        } : function (fetchedLinkBox) {
-            var theme = getThemeOfLinkBox(fetchedLinkBox);
-            console.log(theme);
-            __PS_MV_REG = [];
-            return SELECTEDTHEME === theme;
-        };
         $.get({ url : 'data/' + String(linkId),
                 async : null,
                 success : function (responseText) {
             console.log($(responseText));
-            if (filter($(responseText))) {
-                document.getElementById('responsive-browse-link-boxes').insertAdjacentHTML('beforeend', responseText);
-                console.log(linkId, 'fetched');
-                __PS_MV_REG = [];
-                return FETCHABLELINKS.splice(idx, 1);
-            };
+            console.log(linkId, 'fetched');
+            FETCHABLELINKS.splice(idx, 1);
+            __PS_MV_REG = [];
+            return document.getElementById('responsive-browse-link-boxes').insertAdjacentHTML('beforeend', responseText);
         }
               });
         __PS_MV_REG = [];
@@ -122,18 +122,11 @@ $('.link-action').click(function () {
 });
 function updateSelectedTheme() {
     SELECTEDTHEME = $('#filter-form option:selected').html();
-    var linkBoxes = $('#responsive-browse-link-boxes').children();
-    var _js3 = linkBoxes.length - 1;
-    for (var i = 0; i <= _js3; i += 1) {
-        if (SELECTEDTHEME !== getThemeOfLinkBox($(linkBoxes[i]))) {
-            linkBoxes[i].remove();
-        };
-    };
-    var linkBoxes4 = $('#responsive-browse-link-boxes').children();
-    if (linkBoxes4.length < 2) {
+    FETCHABLELINKS = JSON.parse(JSON.stringify(THEMELINKIDLISTHASHTABLE[SELECTEDTHEME]));
+    FETCHABLELINKS.unshift(0);
+    $('#responsive-browse-link-boxes').html('');
+    for (var i = 0; i <= 3; i += 1) {
         getLinkFromServer();
-        __PS_MV_REG = [];
-        return getLinkFromServer();
     };
 };
 function promptForLogin() {
