@@ -319,16 +319,14 @@
                      (:br)
                      (:br)
                      (:br))
-                  `(""))
+                  `((:br)))
             (:div :id "username" :class "text-center" "Welcome to KnowTNet!")
             (:div :id "info-panel-menu" ()
                   (:a :href ,+front-page+ "Home")
                   (:a :id "toggle-known-btn" :onclick "toggleKnown()" "View Known Links")
                   (:a :href ,+about-page+ "About Us")
                   (:div :id "info-panel-spacer" ())
-                  (:a :href ,+logout-server-page+ "Log Out")
-                  (:a :href ,+logout-all-persistent-server-page+
-                      "Log out on all devices")
+                  (:a :onclick "clearKnownLinks" "Clear Known Links")
                   (:p :id "ktn" :class "text-center"
                       "KNOWLEDGE TRANSFER NETWORK"))
             ,(generate-loader)

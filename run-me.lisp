@@ -40,38 +40,48 @@
 (iter (for (theme link-id-list) in-hashtable *theme-link-id-list-hash-table*)
       (format t "  ~D links in ~D~%" (length link-id-list) theme))
 
-;; generate index.html
-(with-tidy-xml "index.html"
-  (let ((cl-markup:*auto-escape* nil))
-    (cl-markup:html5
-     (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
-      (:link :href "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
-             :rel "stylesheet")
-      (:link :href "https://fonts.googleapis.com/icon?family=Material+Icons"
-             :rel "stylesheet")
-      (:link :href "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-             :rel "stylesheet")
-      (:link :href "css/miscellaneous.css" :rel "stylesheet")
-      ;; (:link :rel "stylesheet" :href "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css")
-      ;; (:script :src "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" ())
-      ;; (:script :src "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js" ())
-      (:script :async t :src "https://www.googletagmanager.com/gtag/js?id=UA-152031047-1" ())
-      (:script "
+(defmacro html5 (&body body)
+  `(cl-markup:html5
+    (:meta :name "viewport" :content "width=device-width, initial-scale=1.0")
+    (:link :href "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+           :rel "stylesheet")
+    (:link :href "https://fonts.googleapis.com/icon?family=Material+Icons"
+           :rel "stylesheet")
+    (:link :href "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+           :rel "stylesheet")
+    (:link :href "css/miscellaneous.css" :rel "stylesheet")
+    ;; (:link :rel "stylesheet" :href "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css")
+    ;; (:script :src "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" ())
+    ;; (:script :src "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js" ())
+    (:script :async t :src "https://www.googletagmanager.com/gtag/js?id=UA-152031047-1" ())
+    (:script "
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'UA-152031047-1');")
-      (:title "Knowledge Transfer Network")
-      (:script :src "css/jquery-3.4.1.min.js" ())
-     (:title "Knowledge Transfer Network - Serverless")
-     (:link :rel "stylesheet" :href "css/front.css" :type "text/css")
-     (:link :rel "stylesheet" :href "css/link-box.css" :type "text/css")
+    (:title "Knowledge Transfer Network")
+    (:script :src "css/jquery-3.4.1.min.js" ())
+    (:title "Knowledge Transfer Network - Serverless")
+    (:link :rel "stylesheet" :href "css/front.css" :type "text/css")
+    (:link :rel "stylesheet" :href "css/link-box.css" :type "text/css")
+    ,@body))
+
+;; generate index.html
+(with-tidy-xml "index.html"
+  (let ((cl-markup:*auto-escape* nil))
+    (html5
      (generate-responsive-info-panel)
      (:div :id "responsive-browse-link-boxes" ())
      (generate-loader)
      (:script :type "text/javascript"
               (generate-browse-link-box-js)))))
 
+(with-tidy-xml "about.html"
+  (let ((cl-markup:*auto-escape* nil))
+    (html5
+     (generate-responsive-info-panel :filter-page-form nil)
+     (:div :id "responsive-browse-link-boxes"
+           *about-text*))))
 
 
