@@ -308,40 +308,43 @@
                     :onclick "updateSelectedTheme()"
                     :value "search")))))
 
-(defun generate-responsive-info-panel (&key (filter-page-form t) selected-theme
-                                         front-page-form known-filter-page-form)
+(defun generate-responsive-info-panel (&key about-page)
   ;; HTML generated from other functions needs to be included
   ;; Here, username is one place where injection can take place.
   ;; Therefore, have it escaped when it was inserted into the db!
   (let ((cl-markup:*auto-escape* nil))
-    (cl-markup:markup*
-     `(:div :id "responsive-info-panel"
-            (:div :id "site-title"
-                  (:span :id "site-title-text" :class "text-left" "KnowTNet")
-                  (:span :id "site-title-spacer" :class "visible-small" ())
-                  (:i :id "info-panel-menu-btn"
-                      :class "material-icons text-right visible-small" "menu"))
-            ,@(if filter-page-form
-                  `(,(generate-filter-form :selected-theme selected-theme
-                                           :known-filter-page-form known-filter-page-form)
-                     (:br)
-                     (:br)
-                     (:br)
-                     (:br))
-                  `((:br)))
-            (:div :id "username" :class "text-center" "Welcome to KnowTNet!")
-            (:div :id "info-panel-menu" ()
-                  (:a :href ,+front-page+ "Home")
-                  (:a :id "toggle-known-btn" :onclick "toggleKnown()" "View Known Links")
-                  (:a :href ,+about-page+ "About Us")
-                  (:div :id "info-panel-spacer" ())
-                  (:a :onclick "clearKnownLinks()" "Clear Known Links")
-                  (:p :id "ktn" :class "text-center"
-                      "KNOWLEDGE TRANSFER NETWORK"))
-            ,(generate-loader)
-            (:br :class "visible-large")
-            (:br :class "visible-large")
-            (:br :class "visible-large")
-            (:script :type "text/javascript" ,(generate-responsive-info-panel-js))))))
+    (if about-page
+        (cl-markup:markup*
+         `(:div :id "responsive-info-panel" :class "text-center"
+                (:div :id "site-title"
+                      (:span :id "site-title-text" "KnowTNet"))
+                (:p :class "text-center"
+                    (:a :href ,+front-page+ "Go back"))))
+        (cl-markup:markup*
+         `(:div :id "responsive-info-panel"
+                (:div :id "site-title"
+                      (:span :id "site-title-text" :class "text-left" "KnowTNet")
+                      (:span :id "site-title-spacer" :class "visible-small" ())
+                      (:i :id "info-panel-menu-btn"
+                          :class "material-icons text-right visible-small" "menu"))
+                ,(generate-filter-form)
+                (:br)
+                (:br)
+                (:br)
+                (:br)
+                (:div :id "username" :class "text-center" "Welcome to KnowTNet!")
+                (:div :id "info-panel-menu" ()
+                      (:a :href ,+front-page+ "Home")
+                      (:a :id "toggle-known-btn" :onclick "toggleKnown()" "View Known Links")
+                      (:a :href ,+about-page+ "About Us")
+                      (:div :id "info-panel-spacer" ())
+                      (:a :onclick "clearKnownLinks()" "Clear Known Links")
+                      (:p :id "ktn" :class "text-center"
+                          "KNOWLEDGE TRANSFER NETWORK"))
+                ,(generate-loader)
+                (:br :class "visible-large")
+                (:br :class "visible-large")
+                (:br :class "visible-large")
+                (:script :type "text/javascript" ,(generate-responsive-info-panel-js)))))))
 
 

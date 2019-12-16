@@ -80,7 +80,7 @@
 (with-tidy-xml "about.html"
   (let ((cl-markup:*auto-escape* nil))
     (html5
-     (generate-responsive-info-panel :filter-page-form nil)
+     (generate-responsive-info-panel :about-page t)
      (:div :id "responsive-browse-link-boxes"
            *about-text*))))
 
