@@ -113,7 +113,7 @@
    `(defvar *waiting-for-ajax* nil)
 
    `(chain ($ document)
-           (on "wheel"
+           (on "scroll"
                (lambda (event) 
                  (when (and (>= (+ (@ window inner-height)
                                    (@ window scroll-y))
@@ -299,7 +299,7 @@
             (:div :id "username" :class "text-center" "Welcome to KnowTNet!")
             (:div :id "info-panel-menu" ()
                   (:a :href ,+front-page+ "Home")
-                  (:a :href ,+known-links-page+ "View Known Links")
+                  (:a :onclick "toggleKnown()")
                   (:a :href ,+about-page+ "About Us")
                   (:div :id "info-panel-spacer" ())
                   (:a :href ,+logout-server-page+ "Log Out")
