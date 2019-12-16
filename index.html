@@ -3,10 +3,26 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-152031047-1');</script><title>Knowledge Transfer Network</title><script src="css/jquery-3.4.1.min.js"></script><title>Knowledge Transfer Network - Serverless</title><link rel="stylesheet" href="css/front.css" type="text/css"><link rel="stylesheet" href="css/link-box.css" type="text/css"><div id="responsive-info-panel"><div id="site-title"><span id="site-title-text" class="text-left">KnowTNet</span><span id="site-title-spacer" class="visible-small"></span><i id="info-panel-menu-btn" class="material-icons text-right visible-small">menu</i></div><span><div id="filter-form" method="GET"><select name="theme" required="required"><option value="">Select Theme</option><option value="programming">programming</option><option value="economics">economics</option><option value="lisp">lisp</option><option value="basic-science">basic-science</option><option value="artificial-intelligence">artificial-intelligence</option><option value="india">india</option><option value="iitb">iitb</option><option value="life">life</option></select><input type="submit" id="filter-btn" class="material-icons" onclick="updateSelectedTheme()" value="search"></div><br><br><br><br><div id="username" class="text-center">Welcome to KnowTNet!</div><div id="info-panel-menu"><a href="/">Home</a><a onclick="toggleKnown()"><a href="/about">About Us</a><div id="info-panel-spacer"></div><a href="/logout-server">Log Out</a><a href="/logout-persistent-server">Log out on all devices</a><p id="ktn" class="text-center">KNOWLEDGE TRANSFER NETWORK</p></div><div id="loader-background"><div id="loader"></div></div><br class="visible-large"><br class="visible-large"><br class="visible-large"><script type="text/javascript">$('#info-panel-menu-btn').click(function () {
+  gtag('config', 'UA-152031047-1');</script><title>Knowledge Transfer Network</title><script src="css/jquery-3.4.1.min.js"></script><title>Knowledge Transfer Network - Serverless</title><link rel="stylesheet" href="css/front.css" type="text/css"><link rel="stylesheet" href="css/link-box.css" type="text/css"><div id="responsive-info-panel"><div id="site-title"><span id="site-title-text" class="text-left">KnowTNet</span><span id="site-title-spacer" class="visible-small"></span><i id="info-panel-menu-btn" class="material-icons text-right visible-small">menu</i></div><span><div id="filter-form" method="GET"><select name="theme" required="required"><option value="">Select Theme</option><option value="programming">programming</option><option value="economics">economics</option><option value="lisp">lisp</option><option value="basic-science">basic-science</option><option value="artificial-intelligence">artificial-intelligence</option><option value="india">india</option><option value="iitb">iitb</option><option value="life">life</option></select><input type="submit" id="filter-btn" class="material-icons" onclick="updateSelectedTheme()" value="search"></div><br><br><br><br><div id="username" class="text-center">Welcome to KnowTNet!</div><div id="info-panel-menu"><a href="/">Home</a><a id="toggle-known-btn" onclick="toggleKnown()">View Known Links</a><a href="/about">About Us</a><div id="info-panel-spacer"></div><a href="/logout-server">Log Out</a><a href="/logout-persistent-server">Log out on all devices</a><p id="ktn" class="text-center">KNOWLEDGE TRANSFER NETWORK</p></div><div id="loader-background"><div id="loader"></div></div><br class="visible-large"><br class="visible-large"><br class="visible-large"><script type="text/javascript">function getInfoPanelMenu() {
+    __PS_MV_REG = [];
+    return document.getElementById('info-panel-menu');
+};
+function hideInfoPanel() {
+    __PS_MV_REG = [];
+    return getInfoPanelMenu().style.width = '0px';
+};
+function showInfoPanel() {
+    __PS_MV_REG = [];
+    return getInfoPanelMenu().style.width = '80vw';
+};
+function infoPanelVisibleP() {
+    __PS_MV_REG = [];
+    return getInfoPanelMenu().style.width !== '0px';
+};
+$('#info-panel-menu-btn').click(function () {
     var args = Array.prototype.slice.call(arguments, 0);
     __PS_MV_REG = [];
-    return document.getElementById('info-panel-menu').style.width = document.getElementById('info-panel-menu').style.width === '80vw' ? '0' : '80vw';
+    return infoPanelVisibleP() ? hideInfoPanel() : showInfoPanel();
 });</script></div><div id="responsive-browse-link-boxes"></div><div id="loader-background"><div id="loader"></div></div><script type="text/javascript">if ('undefined' === typeof KNOWNLINKSVARNAME) {
     var KNOWNLINKSVARNAME = 'known';
 };
@@ -25,6 +41,9 @@ if (localStorage[KNOWNLINKSVARNAME]) {
             return collect1;
         })();
     };
+};
+if ('undefined' === typeof FETCHKNOWN) {
+    var FETCHKNOWN = null;
 };
 if ('undefined' === typeof THEMELINKIDLISTHASHTABLE) {
     var THEMELINKIDLISTHASHTABLE = { 'economics' : [30, 2, 1],
@@ -123,6 +142,19 @@ $('.link-action').click(function () {
 function updateSelectedTheme() {
     SELECTEDTHEME = $('#filter-form option:selected').html();
     FETCHABLELINKS = JSON.parse(JSON.stringify(THEMELINKIDLISTHASHTABLE[SELECTEDTHEME]));
+    FETCHABLELINKS = (function () {
+        var _js4 = FETCHABLELINKS.length;
+        var collect5 = [];
+        for (var _js3 = 0; _js3 < _js4; _js3 += 1) {
+            var id = FETCHABLELINKS[_js3];
+            var known = knownP(id);
+            if (FETCHKNOWN && known || !FETCHKNOWN && !known) {
+                collect5.push(id);
+            };
+        };
+        __PS_MV_REG = [];
+        return collect5;
+    })();
     FETCHABLELINKS.unshift(0);
     $('#responsive-browse-link-boxes').html('');
     for (var i = 0; i <= 3; i += 1) {
@@ -184,6 +216,13 @@ function pingAndOpen(url) {
 };
 function sleep(ms) {
     return new Promise;
+};
+function toggleKnown() {
+    FETCHKNOWN = !FETCHKNOWN;
+    updateSelectedTheme();
+    hideInfoPanel();
+    __PS_MV_REG = [];
+    return $('#toggle-known-btn').html(FETCHKNOWN ? 'View Unknown Links' : 'View Known Links');
 };
 (function () {
     for (var i = 0; i <= 4; i += 1) {

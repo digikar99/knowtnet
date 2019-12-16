@@ -71,15 +71,20 @@
 (defun generate-responsive-info-panel-js ()
   (declare (sb-ext:muffle-conditions cl:warning))
   (ps:ps
+    (defun get-info-panel-menu ()
+      (document.get-element-by-id "info-panel-menu"))
+    (defun hide-info-panel ()
+      (setf (chain (get-info-panel-menu) style.width) "0px"))
+    (defun show-info-panel ()
+      (setf (chain (get-info-panel-menu) style.width) "80vw"))
+    (defun info-panel-visible-p ()
+      (not (string= (chain (get-info-panel-menu) style.width) "0px")))
+    
     (chain ($ "#info-panel-menu-btn")
            (click
-            λ(setf (chain (document.get-element-by-id "info-panel-menu")
-                   style.width)
-                   (if (string= (chain (document.get-element-by-id "info-panel-menu")
-                                       style.width)
-                                "80vw")
-                       "0"
-                       "80vw"))))))
+            λ(if (info-panel-visible-p)
+                 (hide-info-panel)
+                 (show-info-panel))))))
 
 (defun generate-browse-link-box-js (&key theme-name user)
   (declare (sb-ext:muffle-conditions cl:warning))
@@ -92,6 +97,8 @@
         (defvar *known-links*
           (loop for i from 0 to ,(length links)
              collect 0)))
+
+   `(defvar *fetch-known* nil)
 
    `(defvar *theme-link-id-list-hash-table*
       (ps:create ,@(iter (for (theme link-id-list) in-hashtable
@@ -188,6 +195,12 @@
       (setf *fetchable-links* (|JSON.parse| (|JSON.stringify|
                                                     (aref *theme-link-id-list-hash-table*
                                                           *selected-theme*))))
+      (setf *fetchable-links* (loop for id in *fetchable-links*
+                                 for known = (known-p id)
+                                 if (or (and *fetch-known* known)
+                                        (and (not *fetch-known*)
+                                             (not known)))
+                                 collect id))
       (chain *fetchable-links* (unshift 0))
 
       ;; delete all children
@@ -249,6 +262,14 @@
    `(defun sleep (ms)
       (ps:new |Promise|))
 
+   `(defun toggle-known ()
+      (setf *fetch-known* (not *fetch-known*))
+      (update-selected-theme)
+      (hide-info-panel)
+      (chain ($ "#toggle-known-btn") (html (if *fetch-known*
+                                               "View Unknown Links"
+                                               "View Known Links"))))
+
    `(loop for i from 0 to 4 do (get-link-from-server))
    ;; `(chain ($ document)
    ;;         (ready
@@ -299,7 +320,7 @@
             (:div :id "username" :class "text-center" "Welcome to KnowTNet!")
             (:div :id "info-panel-menu" ()
                   (:a :href ,+front-page+ "Home")
-                  (:a :onclick "toggleKnown()")
+                  (:a :id "toggle-known-btn" :onclick "toggleKnown()" "View Known Links")
                   (:a :href ,+about-page+ "About Us")
                   (:div :id "info-panel-spacer" ())
                   (:a :href ,+logout-server-page+ "Log Out")
