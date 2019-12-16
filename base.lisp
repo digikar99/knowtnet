@@ -153,6 +153,10 @@
                                                                 response-text)))))
           (setq *waiting-for-ajax* nil))))
 
+   `(defun try-making-scrollable ()
+      (loop for i from 0 to 3
+         do (get-link-from-server)))
+
    `(chain ($ ".link-rating")
            (find "a")
            (click ,(if user
@@ -207,8 +211,7 @@
       (chain ($ "#responsive-browse-link-boxes") (html ""))
 
       ;; get some children to try making it scrollable
-      (loop for i from 0 to 3
-           do (get-link-from-server)))
+      (try-making-scrollable))
 
    `(defun prompt-for-login ()
       ((@ ($ "#login-prompt") show)))
@@ -270,7 +273,7 @@
                                                "View Unknown Links"
                                                "View Known Links"))))
 
-   `(loop for i from 0 to 4 do (get-link-from-server))
+   `(try-making-scrollable)
    ;; `(chain ($ document)
    ;;         (ready
    ;;          λ(loop for i from 0 to 5

@@ -112,6 +112,11 @@ function getLinkFromServer() {
         return WAITINGFORAJAX = null;
     };
 };
+function tryMakingScrollable() {
+    for (var i = 0; i <= 3; i += 1) {
+        getLinkFromServer();
+    };
+};
 $('.link-rating').find('a').click(promptForLogin);
 function getLinkBoxWithLinkAction(elt) {
     __PS_MV_REG = [];
@@ -157,9 +162,8 @@ function updateSelectedTheme() {
     })();
     FETCHABLELINKS.unshift(0);
     $('#responsive-browse-link-boxes').html('');
-    for (var i = 0; i <= 3; i += 1) {
-        getLinkFromServer();
-    };
+    __PS_MV_REG = [];
+    return tryMakingScrollable();
 };
 function promptForLogin() {
     __PS_MV_REG = [];
@@ -224,8 +228,4 @@ function toggleKnown() {
     __PS_MV_REG = [];
     return $('#toggle-known-btn').html(FETCHKNOWN ? 'View Unknown Links' : 'View Known Links');
 };
-(function () {
-    for (var i = 0; i <= 4; i += 1) {
-        getLinkFromServer();
-    };
-})();</script></html>
+tryMakingScrollable();</script></html>
