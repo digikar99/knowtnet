@@ -3,7 +3,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-152031047-1');</script><title>Knowledge Transfer Network</title><script src="css/jquery-3.4.1.min.js"></script><title>Knowledge Transfer Network - Serverless</title><link rel="stylesheet" href="css/front.css" type="text/css"><link rel="stylesheet" href="css/link-box.css" type="text/css"><div id="responsive-info-panel"><div id="site-title"><span id="site-title-text" class="text-left">KnowTNet</span><span id="site-title-spacer" class="visible-small"></span><i id="info-panel-menu-btn" class="material-icons text-right visible-small">menu</i></div><span><div id="filter-form" method="GET"><select name="theme" required="required"><option value="">Select Theme</option><option value="programming">programming</option><option value="economics">economics</option><option value="lisp">lisp</option><option value="basic-science">basic-science</option><option value="artificial-intelligence">artificial-intelligence</option><option value="india">india</option><option value="iitb">iitb</option><option value="life">life</option></select><input type="submit" id="filter-btn" class="material-icons" onclick="updateSelectedTheme()" value="search"></div><br><br><br><br><div id="username" class="text-center">Welcome to KnowTNet!</div><div id="info-panel-menu"><a href="index.html">Home</a><a id="toggle-known-btn" onclick="toggleKnown()">View Known Links</a><a href="about.html">About Us</a><div id="info-panel-spacer"></div><a onclick="clearKnownLinks">Clear Known Links</a><p id="ktn" class="text-center">KNOWLEDGE TRANSFER NETWORK</p></div><div id="loader-background"><div id="loader"></div></div><br class="visible-large"><br class="visible-large"><br class="visible-large"><script type="text/javascript">function getInfoPanelMenu() {
+  gtag('config', 'UA-152031047-1');</script><title>Knowledge Transfer Network</title><script src="css/jquery-3.4.1.min.js"></script><title>Knowledge Transfer Network - Serverless</title><link rel="stylesheet" href="css/front.css" type="text/css"><link rel="stylesheet" href="css/link-box.css" type="text/css"><div id="responsive-info-panel"><div id="site-title"><span id="site-title-text" class="text-left">KnowTNet</span><span id="site-title-spacer" class="visible-small"></span><i id="info-panel-menu-btn" class="material-icons text-right visible-small">menu</i></div><span><div id="filter-form" method="GET"><select name="theme" required="required"><option value="">Select Theme</option><option value="programming">programming</option><option value="economics">economics</option><option value="lisp">lisp</option><option value="basic-science">basic-science</option><option value="artificial-intelligence">artificial-intelligence</option><option value="india">india</option><option value="iitb">iitb</option><option value="life">life</option></select><input type="submit" id="filter-btn" class="material-icons" onclick="updateSelectedTheme()" value="search"></div><br><br><br><br><div id="username" class="text-center">Welcome to KnowTNet!</div><div id="info-panel-menu"><a href="index.html">Home</a><a id="toggle-known-btn" onclick="toggleKnown()">View Known Links</a><a href="about.html">About Us</a><div id="info-panel-spacer"></div><a onclick="clearKnownLinks()">Clear Known Links</a><p id="ktn" class="text-center">KNOWLEDGE TRANSFER NETWORK</p></div><div id="loader-background"><div id="loader"></div></div><br class="visible-large"><br class="visible-large"><br class="visible-large"><script type="text/javascript">function getInfoPanelMenu() {
     __PS_MV_REG = [];
     return document.getElementById('info-panel-menu');
 };
@@ -64,16 +64,29 @@ function markAsKnownAndRemove(triggerElt, id) {
 function knownP(id) {
     return KNOWNLINKS[id];
 };
-if ('undefined' === typeof FETCHABLELINKS) {
-    var FETCHABLELINKS = (function () {
+function clearKnownLinks() {
+    KNOWNLINKS = (function () {
         var collect2 = [];
         for (var i = 0; i <= 37; i += 1) {
-            if (!knownP(i)) {
-                collect2.push(i);
-            };
+            collect2.push(0);
         };
         __PS_MV_REG = [];
         return collect2;
+    })();
+    localStorage[KNOWNLINKSVARNAME] = KNOWNLINKS;
+    __PS_MV_REG = [];
+    return window.location.reload();
+};
+if ('undefined' === typeof FETCHABLELINKS) {
+    var FETCHABLELINKS = (function () {
+        var collect3 = [];
+        for (var i = 0; i <= 37; i += 1) {
+            if (!knownP(i)) {
+                collect3.push(i);
+            };
+        };
+        __PS_MV_REG = [];
+        return collect3;
     })();
 };
 if ('undefined' === typeof WAITINGFORAJAX) {
@@ -146,19 +159,31 @@ $('.link-action').click(function () {
 });
 function updateSelectedTheme() {
     SELECTEDTHEME = $('#filter-form option:selected').html();
-    FETCHABLELINKS = JSON.parse(JSON.stringify(THEMELINKIDLISTHASHTABLE[SELECTEDTHEME]));
+    var linkList = THEMELINKIDLISTHASHTABLE[SELECTEDTHEME];
+    if (linkList == null) {
+        FETCHABLELINKS = (function () {
+            var collect4 = [];
+            for (var i = 1; i <= 37; i += 1) {
+                collect4.push(i);
+            };
+            __PS_MV_REG = [];
+            return collect4;
+        })();
+    } else {
+        FETCHABLELINKS = JSON.parse(JSON.stringify(linkList));
+    };
     FETCHABLELINKS = (function () {
-        var _js4 = FETCHABLELINKS.length;
-        var collect5 = [];
-        for (var _js3 = 0; _js3 < _js4; _js3 += 1) {
-            var id = FETCHABLELINKS[_js3];
+        var _js6 = FETCHABLELINKS.length;
+        var collect7 = [];
+        for (var _js5 = 0; _js5 < _js6; _js5 += 1) {
+            var id = FETCHABLELINKS[_js5];
             var known = knownP(id);
             if (FETCHKNOWN && known || !FETCHKNOWN && !known) {
-                collect5.push(id);
+                collect7.push(id);
             };
         };
         __PS_MV_REG = [];
-        return collect5;
+        return collect7;
     })();
     FETCHABLELINKS.unshift(0);
     $('#responsive-browse-link-boxes').html('');

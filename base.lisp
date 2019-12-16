@@ -112,6 +112,12 @@
 
    `(defun known-p (id) (aref *known-links* id))
 
+   `(defun clear-known-links ()
+      (setf *known-links* (loop for i from 0 to ,(length links)
+                             collect 0))
+      (setf (aref local-storage *known-links-var-name*) *known-links*)
+      (window.location.reload))
+
    ;; set *fetchable-links* on every selected-theme update
    `(defvar *fetchable-links* (loop for i from 0 to ,(length links)
                                  if (not (known-p i))
@@ -196,9 +202,12 @@
       (setf *selected-theme* (chain ($ "#filter-form option:selected") (html)))
 
       ;; update fetchable-links
-      (setf *fetchable-links* (|JSON.parse| (|JSON.stringify|
-                                                    (aref *theme-link-id-list-hash-table*
-                                                          *selected-theme*))))
+      (let ((link-list (aref *theme-link-id-list-hash-table*
+                             *selected-theme*)))
+        (if (null link-list)
+            (setf *fetchable-links* (loop for i from 1 to ,(length links)
+                                       collect i))
+            (setf *fetchable-links* (|JSON.parse| (|JSON.stringify| link-list)))))
       (setf *fetchable-links* (loop for id in *fetchable-links*
                                  for known = (known-p id)
                                  if (or (and *fetch-known* known)
@@ -326,7 +335,7 @@
                   (:a :id "toggle-known-btn" :onclick "toggleKnown()" "View Known Links")
                   (:a :href ,+about-page+ "About Us")
                   (:div :id "info-panel-spacer" ())
-                  (:a :onclick "clearKnownLinks" "Clear Known Links")
+                  (:a :onclick "clearKnownLinks()" "Clear Known Links")
                   (:p :id "ktn" :class "text-center"
                       "KNOWLEDGE TRANSFER NETWORK"))
             ,(generate-loader)
